@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.RegisterController">
+   <ImageView fx:id="registerImg" fitHeight="600.0" fitWidth="555.0" pickOnBounds="true" preserveRatio="true">
+      <Image url="@../../../../../img/register_img.png"/>
+   </ImageView>
+   <Pane fx:id="registerFormPane" layoutX="435.0" layoutY="-2.0" prefHeight="606.0" prefWidth="468.0"
+         style="-fx-background-color: A7CADA;">
+      <Button fx:id="registerButton" layoutX="187.0" layoutY="420.0" mnemonicParsing="false"
+              onAction="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;"
+              text="Register Now">
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </Button>
+      <Label fx:id="appTitleLabel" layoutX="167.0" layoutY="70.0" prefHeight="45.0" prefWidth="135.0" text="ToDoApp">
+         <font>
+            <Font name="Berlin Sans FB" size="32.0"/>
+         </font>
+      </Label>
+      <Label fx:id="appSectionLabel" layoutX="189.0" layoutY="115.0" prefHeight="45.0" prefWidth="105.0"
+             text="Register">
+         <font>
+            <Font name="Berlin Sans FB" size="28.0"/>
+         </font>
+      </Label>
+      <PasswordField fx:id="userPasswordField" layoutX="149.0" layoutY="293.0" prefHeight="36.0" prefWidth="171.0"
+                     promptText="Create a password">
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="repeatPasswordField" layoutX="149.0" layoutY="348.0" prefHeight="36.0" prefWidth="171.0"
+                     promptText="Repeat the password">
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </PasswordField>
+      <TextField fx:id="userNameField" layoutX="149.0" layoutY="185.0" prefHeight="36.0" prefWidth="171.0"
+                 promptText="Enter your name">
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </TextField>
+      <TextField fx:id="userEmailField" layoutX="149.0" layoutY="236.0" prefHeight="36.0" prefWidth="171.0"
+                 promptText="Enter your e-mail">
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </TextField>
+      <Label fx:id="loginQuestionLabel" layoutX="156.0" layoutY="453.0" prefHeight="36.0" prefWidth="135.0"
+             text="Already have an account? ">
+         <font>
+            <Font name="Berlin Sans FB" size="12.0"/>
+         </font>
+      </Label>
+      <Label fx:id="loginLinkLabel" layoutX="291.0" layoutY="462.0" prefHeight="19.0" prefWidth="45.0" text="Log in"
+             textFill="#0004ff" underline="true">
+         <font>
+            <Font name="Berlin Sans FB" size="11.0"/>
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND"/>
+         </cursor>
+      </Label>
+   </Pane>
+</Pane>
