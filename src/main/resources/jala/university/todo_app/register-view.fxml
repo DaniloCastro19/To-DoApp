@@ -12,7 +12,7 @@
 
 <Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.RegisterController">
    <ImageView fx:id="registerImg" fitHeight="600.0" fitWidth="555.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../../../img/register_img.png"/>
+      <Image url="@../../../img/register_img.png"/>
    </ImageView>
    <Pane fx:id="registerFormPane" layoutX="435.0" layoutY="-2.0" prefHeight="606.0" prefWidth="468.0"
          style="-fx-background-color: A7CADA;">
