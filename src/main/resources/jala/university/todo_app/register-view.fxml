@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.RegisterController">
+<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.RegisterController">
    <ImageView fx:id="registerImg" fitHeight="600.0" fitWidth="555.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../../../img/register_img.png"/>
    </ImageView>

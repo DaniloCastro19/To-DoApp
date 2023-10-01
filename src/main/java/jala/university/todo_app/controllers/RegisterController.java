@@ -1,4 +1,4 @@
-package jala.university.todo_app;
+package jala.university.todo_app.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
