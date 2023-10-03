@@ -1,6 +1,9 @@
 module jala.university.todo_app {
     requires javafx.controls;
     requires javafx.fxml;
+    requires org.mongodb.driver.core;
+    requires org.mongodb.driver.sync.client;
+    requires org.mongodb.bson;
 
 
     opens jala.university.todo_app to javafx.fxml;

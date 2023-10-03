@@ -10,71 +10,81 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.RegisterController">
+<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.RegisterController">
    <ImageView fx:id="registerImg" fitHeight="600.0" fitWidth="555.0" pickOnBounds="true" preserveRatio="true">
-      <Image url="@../../../img/register_img.png"/>
+      <Image url="@../../../img/register_img.png" />
    </ImageView>
-   <Pane fx:id="registerFormPane" layoutX="435.0" layoutY="-2.0" prefHeight="606.0" prefWidth="468.0"
-         style="-fx-background-color: A7CADA;">
-      <Button fx:id="registerButton" layoutX="187.0" layoutY="420.0" mnemonicParsing="false"
-              onAction="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;"
-              text="Register Now">
+   <Pane fx:id="registerFormPane" layoutX="432.0" layoutY="-3.0" prefHeight="606.0" prefWidth="468.0" style="-fx-background-color: #4991C5;">
+      <Button fx:id="registerButton" layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;" text="Register Now">
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </Button>
-      <Label fx:id="appTitleLabel" layoutX="167.0" layoutY="70.0" prefHeight="45.0" prefWidth="135.0" text="ToDoApp">
+      <Label fx:id="appTitleLabel" layoutX="167.0" layoutY="57.0" prefHeight="45.0" prefWidth="135.0" text="ToDoApp">
          <font>
-            <Font name="Berlin Sans FB" size="32.0"/>
+            <Font name="Berlin Sans FB" size="32.0" />
          </font>
       </Label>
-      <Label fx:id="appSectionLabel" layoutX="189.0" layoutY="115.0" prefHeight="45.0" prefWidth="105.0"
-             text="Register">
+      <Label fx:id="appSectionLabel" layoutX="182.0" layoutY="102.0" prefHeight="45.0" prefWidth="105.0" text="Register">
          <font>
-            <Font name="Berlin Sans FB" size="28.0"/>
+            <Font name="Berlin Sans FB" size="28.0" />
          </font>
       </Label>
-      <PasswordField fx:id="userPasswordField" layoutX="149.0" layoutY="293.0" prefHeight="36.0" prefWidth="171.0"
-                     promptText="Create a password">
+      <PasswordField fx:id="userPasswordField" layoutX="149.0" layoutY="326.0" prefHeight="36.0" prefWidth="171.0" promptText="Create a password">
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </PasswordField>
-      <PasswordField fx:id="repeatPasswordField" layoutX="149.0" layoutY="348.0" prefHeight="36.0" prefWidth="171.0"
-                     promptText="Repeat the password">
+      <PasswordField fx:id="repeatPasswordField" layoutX="149.0" layoutY="397.0" prefHeight="36.0" prefWidth="171.0" promptText="Repeat the password">
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </PasswordField>
-      <TextField fx:id="userNameField" layoutX="149.0" layoutY="185.0" prefHeight="36.0" prefWidth="171.0"
-                 promptText="Enter your name">
+      <TextField fx:id="userNameField" layoutX="149.0" layoutY="185.0" prefHeight="36.0" prefWidth="171.0" promptText="Enter your name">
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </TextField>
-      <TextField fx:id="userEmailField" layoutX="149.0" layoutY="236.0" prefHeight="36.0" prefWidth="171.0"
-                 promptText="Enter your e-mail">
+      <TextField fx:id="userEmailField" layoutX="149.0" layoutY="258.0" prefHeight="36.0" prefWidth="171.0" promptText="Enter your e-mail">
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </TextField>
-      <Label fx:id="loginQuestionLabel" layoutX="156.0" layoutY="453.0" prefHeight="36.0" prefWidth="135.0"
-             text="Already have an account? ">
+      <Label fx:id="loginQuestionLabel" layoutX="153.0" layoutY="497.0" prefHeight="36.0" prefWidth="135.0" text="Already have an account? ">
          <font>
-            <Font name="Berlin Sans FB" size="12.0"/>
+            <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="loginLinkLabel" layoutX="291.0" layoutY="462.0" prefHeight="19.0" prefWidth="45.0" text="Log in"
-             textFill="#0004ff" underline="true">
+      <Label fx:id="loginLinkLabel" layoutX="288.0" layoutY="506.0" prefHeight="19.0" prefWidth="45.0" text="Log in" textFill="#0004ff" underline="true">
          <font>
-            <Font name="Berlin Sans FB" size="11.0"/>
+            <Font name="Berlin Sans FB" size="11.0" />
          </font>
          <cursor>
-            <Cursor fx:constant="HAND"/>
+            <Cursor fx:constant="HAND" />
          </cursor>
+      </Label>
+      <Label fx:id="nameFieldAlertLabel" layoutX="146.0" layoutY="163.0" textFill="RED" textOverrun="LEADING_ELLIPSIS">
+         <font>
+            <Font name="Berlin Sans FB" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="emailFieldAlertLabel" layoutX="153.0" layoutY="231.0" textFill="RED">
+         <font>
+            <Font name="Berlin Sans FB" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="passwordFieldAlertLabel" layoutX="153.0" layoutY="303.0" textFill="RED">
+         <font>
+            <Font name="Berlin Sans FB" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="repeatPasswordAlertLabel" layoutX="153.0" layoutY="373.0" textFill="RED">
+         <font>
+            <Font name="Berlin Sans FB" size="13.0" />
+         </font>
       </Label>
    </Pane>
 </Pane>

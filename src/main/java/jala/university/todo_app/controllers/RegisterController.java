@@ -1,6 +1,8 @@
 package jala.university.todo_app.controllers;
 
-import javafx.event.ActionEvent;
+import com.mongodb.client.*;
+import com.mongodb.client.result.InsertOneResult;
+import org.bson.Document;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,7 +11,11 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 
+
 public class RegisterController {
+
+    public static MongoClient mongoClient;
+    public static MongoDatabase database;
 
     @FXML
     private Label appSectionLabel;
@@ -48,8 +54,50 @@ public class RegisterController {
     private PasswordField userPasswordField;
 
     @FXML
-    void onRegisterButtonClick(ActionEvent event) {
+    private Label nameFieldAlertLabel;
+    @FXML
+    private Label emailFieldAlertLabel;
+    @FXML
+    private Label passwordFieldAlertLabel;
+    @FXML
+    private Label repeatPasswordAlertLabel;
+    @FXML
+    void onRegisterButtonClick() {
+        try{
+            eraseAlerts();
+            mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
+            database = mongoClient.getDatabase("ToDoApp");
+            MongoCollection<Document> collection = database.getCollection("Usuarios");
 
+            if (fieldValidation()){
+                //TODO: Implementar el resto de validaciones.
+                nameFieldAlertLabel.setText("Este campo no puede estar vacío.");
+                emailFieldAlertLabel.setText("");
+            }else {
+                fieldValidation();
+                Document newUsuario = new Document("nombre", userNameField.getText()).append("email",userEmailField.getText());
+                InsertOneResult result = collection.insertOne(newUsuario);
+
+            }
+
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    boolean fieldValidation(){
+        //TODO: Hacer el resto de validaciones.
+        if(userNameField.getText().isEmpty()){
+            System.out.println("name field empty");
+            return true;
+        }
+        return false;
+    }
+
+    void eraseAlerts(){
+        nameFieldAlertLabel.setText("");
     }
 
 }
+
+
