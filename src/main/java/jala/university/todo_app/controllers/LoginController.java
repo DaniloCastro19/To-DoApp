@@ -28,10 +28,10 @@ public class LoginController {
     private Label loginSubtitle1;
 
     @FXML
-    private Label loginSubtitle11;
+    private TextField passwordField;
 
     @FXML
-    private TextField passwordField;
+    private Button registerbutton;
 
     @FXML
     void loginEvent(ActionEvent event) {

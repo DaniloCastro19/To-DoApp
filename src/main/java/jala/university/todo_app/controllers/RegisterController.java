@@ -2,6 +2,8 @@ package jala.university.todo_app.controllers;
 
 import com.mongodb.client.*;
 import com.mongodb.client.result.InsertOneResult;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.bson.Document;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -70,34 +72,43 @@ public class RegisterController {
             MongoCollection<Document> collection = database.getCollection("Usuarios");
 
             if (fieldValidation()){
-                //TODO: Implementar el resto de validaciones.
                 nameFieldAlertLabel.setText("Este campo no puede estar vacío.");
                 emailFieldAlertLabel.setText("");
             }else {
+                if (validateEmail(userEmailField.getText())) {
+                    fieldValidation();
+                    Document newUsuario = new Document("nombre", userNameField.getText()).append(
+                        "email", userEmailField.getText());
+                    InsertOneResult result = collection.insertOne(newUsuario);
+                } else {
+                    emailFieldAlertLabel.setText("Dirección de correo electrónico no válida.");
+                }
                 fieldValidation();
                 Document newUsuario = new Document("nombre", userNameField.getText()).append("email",userEmailField.getText());
                 InsertOneResult result = collection.insertOne(newUsuario);
-
             }
-
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    boolean fieldValidation(){
-        //TODO: Hacer el resto de validaciones.
-        if(userNameField.getText().isEmpty()){
+    boolean fieldValidation() {
+        if (userNameField.getText().isEmpty()) {
             System.out.println("name field empty");
             return true;
         }
         return false;
     }
 
-    void eraseAlerts(){
+    boolean validateEmail(String email) {
+        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+    void eraseAlerts() {
         nameFieldAlertLabel.setText("");
     }
-
 }
 
 
