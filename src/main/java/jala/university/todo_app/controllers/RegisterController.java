@@ -80,6 +80,7 @@ public class RegisterController {
                     Document newUsuario = new Document("nombre", userNameField.getText()).append(
                         "email", userEmailField.getText());
                     InsertOneResult result = collection.insertOne(newUsuario);
+                    System.out.println("si funciona");
                 } else {
                     emailFieldAlertLabel.setText("Dirección de correo electrónico no válida.");
                 }
