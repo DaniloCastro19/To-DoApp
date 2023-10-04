@@ -1,5 +1,4 @@
 package jala.university.todo_app.controllers;
-
 import com.mongodb.client.*;
 import com.mongodb.client.result.InsertOneResult;
 import org.bson.Document;
@@ -10,13 +9,15 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 
 
 public class RegisterController {
 
-    public static MongoClient mongoClient;
-    public static MongoDatabase database;
+    private static MongoClient mongoClient;
+    private static MongoDatabase database;
 
+    private static StandardPBEStringEncryptor encryptor = new StandardPBEStringEncryptor();
     @FXML
     private Label appSectionLabel;
 
@@ -59,8 +60,9 @@ public class RegisterController {
     private Label emailFieldAlertLabel;
     @FXML
     private Label passwordFieldAlertLabel;
+
     @FXML
-    private Label repeatPasswordAlertLabel;
+    private Label repeatPasswordAlertLabel; //TODO: implementar lógica para verificar la contraseña.
     @FXML
     void onRegisterButtonClick() {
         try{
@@ -75,15 +77,18 @@ public class RegisterController {
                 emailFieldAlertLabel.setText("");
             }else {
                 fieldValidation();
-                Document newUsuario = new Document("nombre", userNameField.getText()).append("email",userEmailField.getText());
-                InsertOneResult result = collection.insertOne(newUsuario);
-
+                encryptor.setPassword(userPasswordField.getText());
+                String userPass = encryptor.encrypt(userPasswordField.getText());
+                Document newUsuario = new Document("nombre", userNameField.getText()).append("email",userEmailField.getText()).append("password", userPass);
+                collection.insertOne(newUsuario);
             }
 
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
     }
+
+    //TODO: agregar redireccionamiento en la app hacia el apartado de login.
 
     boolean fieldValidation(){
         //TODO: Hacer el resto de validaciones.
@@ -92,6 +97,12 @@ public class RegisterController {
             return true;
         }
         return false;
+    }
+
+    //TODO: Implementar validación del email.
+    private boolean isValidEmail(String email){
+        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$";
+        return email.matches(emailRegex);
     }
 
     void eraseAlerts(){
