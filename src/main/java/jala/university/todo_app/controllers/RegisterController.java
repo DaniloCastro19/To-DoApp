@@ -32,6 +32,7 @@ public class RegisterController {
     public static MongoClient mongoClient;
 
     public static MongoDatabase database;
+
     @FXML
     private Label appSectionLabel;
     @FXML
@@ -64,21 +65,38 @@ public class RegisterController {
     private Label passwordFieldAlertLabel;
     @FXML
     private Label repeatPasswordAlertLabel;
+
     @FXML
     void onRegisterButtonClick() {
+
         try {
             eraseAlerts();
             mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
             database = mongoClient.getDatabase("ToDoApp");
             MongoCollection<Document> collection = database.getCollection("Usuarios");
-            if (fieldValidation() || !validateEmail(userEmailField.getText())) {
+            Document existingUser = collection.find(new Document("email", userEmailField.getText())).first();
+
+            if(userNameField.getText().isEmpty()){
+                nameFieldAlertLabel.setText("Campo vacio");
                 return;
             }
-            Document existingUser = collection.find(new Document("email", userEmailField.getText())).first();
+            if (!validateEmail(userEmailField.getText())) {
+                emailFieldAlertLabel.setText("Correo electrónico inválido.");
+                return;
+            }
             if (existingUser != null) {
                 emailFieldAlertLabel.setText("Correo electrónico ya registrado.");
                 return;
             }
+            if (userPasswordField.getText().isEmpty()) {
+                passwordFieldAlertLabel.setText("Campo de contraseña vacío.");
+                return;
+            }
+            if (!userPasswordField.getText().equals(repeatPasswordField.getText())) {
+                repeatPasswordAlertLabel.setText("Las contraseñas no coinciden.");
+                return;
+            }
+
             String password = userPasswordField.getText();
             String repeatPassword = repeatPasswordField.getText();
 
@@ -90,6 +108,7 @@ public class RegisterController {
             }else {
                 System.out.println("Contraseña incorrecta");
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
