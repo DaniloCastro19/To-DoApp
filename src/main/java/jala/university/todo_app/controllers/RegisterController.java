@@ -80,10 +80,16 @@ public class RegisterController {
                 return;
             }
             String password = userPasswordField.getText();
-            String contra = BCrypt.hashpw(password, BCrypt.gensalt());
-            Document newUsuario = new Document("nombre", userNameField.getText()).append("email", userEmailField.getText()).append("password", contra);
-            System.out.println(contra);
-            InsertOneResult result = collection.insertOne(newUsuario);
+            String repeatPassword = repeatPasswordField.getText();
+
+            if(password.equals(repeatPassword)){
+                String contra = BCrypt.hashpw(password, BCrypt.gensalt());
+                Document newUsuario = new Document("nombre", userNameField.getText()).append("email", userEmailField.getText()).append("password", contra);
+                System.out.println(contra);
+                InsertOneResult result = collection.insertOne(newUsuario);
+            }else {
+                System.out.println("Contraseña incorrecta");
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
