@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.DashboardController">
+   <left>
+      <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="131.0" style="-fx-background-color: #003049;" BorderPane.alignment="CENTER">
+         <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Todas las tareas">
+            <font>
+               <Font name="Berlin Sans FB" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor></Button>
+         <ImageView fx:id="userImg" fitHeight="101.0" fitWidth="108.0" layoutX="13.0" layoutY="35.0" onMouseClicked="#changeUserImg" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../img/defaultUserProfileImg.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+         <Label layoutX="16.0" layoutY="147.0" text="Danilo Castro" textFill="WHITE">
+            <font>
+               <Font name="Berlin Sans FB" size="18.0" />
+            </font>
+         </Label>
+         <Button fx:id="todayTaskButton" contentDisplay="CENTER" layoutY="284.0" mnemonicParsing="false" onMouseClicked="#todayTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas de hoy">
+            <font>
+               <Font name="Berlin Sans FB" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+         <Button fx:id="categoriesButton" contentDisplay="CENTER" layoutX="1.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#categories" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #7F97A4;" text="Categorías">
+            <font>
+               <Font name="Berlin Sans FB" size="15.0" />
+            </font>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </Button>
+      </Pane>
+   </left>
+   <center>
+      <Label text="Bienvenido a ToDoApp" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
+         <font>
+            <Font name="Berlin Sans FB" size="36.0" />
+         </font></Label>
+   </center>
+</BorderPane>
