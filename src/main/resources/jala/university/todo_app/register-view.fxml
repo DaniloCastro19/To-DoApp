@@ -10,12 +10,12 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.RegisterController">
+<Pane fx:id="registerUser" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.RegisterController">
    <ImageView fx:id="registerImg" fitHeight="600.0" fitWidth="555.0" pickOnBounds="true" preserveRatio="true">
       <Image url="@../../../img/register_img.png" />
    </ImageView>
    <Pane fx:id="registerFormPane" layoutX="432.0" layoutY="-3.0" prefHeight="606.0" prefWidth="468.0" style="-fx-background-color: #4991C5;">
-      <Button fx:id="registerButton" layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;" text="Register Now">
+      <Button fx:id="registerButton" layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onMouseClicked="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;" text="Register Now">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

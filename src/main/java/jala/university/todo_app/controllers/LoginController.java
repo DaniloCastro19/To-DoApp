@@ -65,6 +65,7 @@ public class LoginController {
             String password = passwordField.getText();
             if (existingUser != null && BCrypt.checkpw(password, existingUser.getString("password"))) {
                 System.out.println("Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now().plusYears(1));
+
             } else {
                 System.out.println("Usuario y/o contraseña incorrectos.");
             }
