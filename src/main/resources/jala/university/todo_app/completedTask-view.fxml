@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <top>
+      <AnchorPane prefHeight="59.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+         <Label fx:id="categoriesTitleLabel" layoutX="90.0" layoutY="2.0" prefHeight="54.0" prefWidth="338.0" text="Tareas completadas" textFill="WHITE">
+            <font>
+               <Font name="Berlin Sans FB" size="40.0" />
+            </font>
+         </Label>
+         <TextField fx:id="searchField" focusTraversable="false" layoutX="515.0" layoutY="14.0" prefHeight="36.0" prefWidth="201.0" promptText="Buscar en lista de categorías" style="-fx-border-radius: 10;">
+            <font>
+               <Font name="Berlin Sans FB" size="12.0" />
+            </font>
+         </TextField>
+         <ImageView fx:id="searchIcon" fitHeight="36.0" fitWidth="39.0" layoutX="681.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../../img/icons8-buscar-48.png" />
+            </image>
+            <cursor>
+               <Cursor fx:constant="HAND" />
+            </cursor>
+         </ImageView>
+      </AnchorPane>
+   </top>
+   <center>
+      <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #161A21;" BorderPane.alignment="CENTER">
+         <VBox fx:id="taskContainer" prefHeight="541.0" prefWidth="774.0" style="-fx-background-color: #161A21;">
+            <AnchorPane fx:id="task" prefHeight="59.0" prefWidth="650.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 0 10 0 10;">
+               <VBox.margin>
+                  <Insets bottom="20.0" top="20.0" />
+               </VBox.margin>
+               <TextField fx:id="categoryName" alignment="CENTER" editable="false" layoutX="282.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: trasparent; -fx-border-width: 1; -fx-border-color: #4A5051; -fx-border-radius: 0 10 0 10;" text="Categoría">
+                  <font>
+                     <Font name="Berlin Sans FB" size="13.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </TextField>
+               <TextField fx:id="taskName" alignment="CENTER" editable="false" layoutX="114.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 0 10 0 10;" text="Tarea">
+                  <font>
+                     <Font name="Berlin Sans FB" size="13.0" />
+                  </font>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </TextField>
+               <ImageView fx:id="completedTaskIcon" fitHeight="44.0" fitWidth="74.0" layoutX="22.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="7.200000000000003" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="593.2" AnchorPane.topAnchor="8.0">
+                  <image>
+                     <Image url="@../../../img/icons8-tarea-completada-48.png" />
+                  </image>
+                  <cursor>
+                     <Cursor fx:constant="HAND" />
+                  </cursor>
+               </ImageView>
+            </AnchorPane>
+         </VBox>
+      </ScrollPane>
+   </center>
+</BorderPane>
