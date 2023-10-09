@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class DashboardController {
 
-    private Parent currentView;
 
     @FXML
     private Button allTaskButton;
@@ -43,28 +42,25 @@ public class DashboardController {
     @FXML
     void allTask(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/allTask-view.fxml");
-        currentView = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/allTask-view.fxml"));
     }
 
     @FXML
     void categories(MouseEvent event) {
-
+        loadPage("/jala/university/todo_app/categories.fxml");
     }
 
     @FXML
-    void todayTask(MouseEvent event) {
+    public void completedTask(MouseEvent mouseEvent) {
+        loadPage("/jala/university/todo_app/completedTask-view.fxml");
 
     }
+
 
     @FXML
     void createNewTask(MouseEvent mouseEvent) throws IOException {
 
         loadPage("/jala/university/todo_app/newTask-view.fxml");
-/*
-        Parent newTaskView = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/newTask-view.fxml"));
-        newTaskButton.setOnAction(event -> {
-        });
-*/
+
     }
 
     private void loadPage(String page){
@@ -84,7 +80,5 @@ public class DashboardController {
     public void changeUserImg(MouseEvent mouseEvent) {
     }
 
-    @FXML
-    public void completedTask(MouseEvent mouseEvent) {
-    }
+
 }
