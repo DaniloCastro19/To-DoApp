@@ -8,6 +8,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -42,8 +43,9 @@ public class AllTaskController {
     @FXML
     private ImageView fliterByIcon;
 
+
     @FXML
-    private ImageView priority;
+    private ImageView priorityImg;
 
     @FXML
     private ScrollPane scrollPane;
@@ -56,6 +58,8 @@ public class AllTaskController {
 
     @FXML
     private AnchorPane task;
+    @FXML
+    private TextField taskCategory;
 
     @FXML
     private VBox taskContainer;
@@ -103,8 +107,45 @@ public class AllTaskController {
             userTaskName.setFont(taskName.getFont());
             userTaskName.setAlignment(Pos.CENTER);
             userTask.getChildren().add(userTaskName);
+
+
+            //Categoría de la tarea
+            TextField userTaskCategory= new TextField();
+            userTaskCategory.setStyle(taskCategory.getStyle());
+            userTaskCategory.setPrefWidth(taskCategory.getPrefWidth());
+            userTaskCategory.setPrefHeight(taskCategory.getPrefHeight());
+            userTaskCategory.setEditable(false);
+            userTaskCategory.setText(tarea.getString("categoria"));
+            userTaskCategory.setLayoutX(taskCategory.getLayoutX());
+            userTaskCategory.setLayoutY(taskCategory.getLayoutY());
+            userTaskCategory.setFont(taskCategory.getFont());
+            userTaskCategory.setAlignment(Pos.CENTER);
+            userTask.getChildren().add(userTaskCategory);
+
+
+            //Icono de prioridad
+            ImageView iconoPrioridad = new ImageView();
+            iconoPrioridad.setFitHeight(priorityImg.getFitHeight());
+            iconoPrioridad.setFitWidth(priorityImg.getFitWidth());
+            iconoPrioridad.setLayoutX(priorityImg.getLayoutX());
+            iconoPrioridad.setLayoutY(priorityImg.getLayoutY());
+            userTask.getChildren().add(iconoPrioridad);
+
+            if(tarea.getString("prioridad").equals("High")){
+                Image icon = new Image(getClass().getResourceAsStream("/img/icons8-alta-prioridad-48.png"));
+                iconoPrioridad.setImage(icon);
+            }else if(tarea.getString("prioridad").equals("Mid")){
+                Image icon = new Image(getClass().getResourceAsStream("/img/icons8-prioridad-media-48.png"));
+                iconoPrioridad.setImage(icon);
+            }else if(tarea.getString("prioridad").equals("Low")){
+                Image icon = new Image(getClass().getResourceAsStream("/img/icons8-baja-prioridad-40.png"));
+                iconoPrioridad.setImage(icon);
+            }
+
             taskContainer.getChildren().add(userTask);
+
         }
+
 
     }
 
