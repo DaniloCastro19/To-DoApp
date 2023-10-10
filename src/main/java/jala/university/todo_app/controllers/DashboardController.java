@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +24,8 @@ import org.bson.types.ObjectId;
 import com.mongodb.client.model.Filters.*;
 
 public class DashboardController {
+
+
 
 
     @FXML
@@ -45,6 +48,8 @@ public class DashboardController {
     @FXML
     private Pane sidebar;
 
+    @FXML
+    private Label userNameLabel;
     @FXML
     private Button todayTaskButton;
 
@@ -71,14 +76,21 @@ public class DashboardController {
 
     @FXML
     void createNewTask(MouseEvent mouseEvent) throws IOException {
+
+        loadPage("/jala/university/todo_app/newTask-view.fxml");
+
+    }
+
+    @FXML
+    public void initialize(){
         connectToDatabase();
         ObjectId userId = LoginController.getUserId();
         Document usuario = collectionUsuarios.find(eq("_id", userId)).first();
         assert usuario != null;
-        System.out.println(usuario.get("nombre"));
+        String userName = (String) usuario.get("nombre");
+        System.out.println(userName);
+        userNameLabel.setText(userName);
 
-
-        loadPage("/jala/university/todo_app/newTask-view.fxml");
 
     }
 
