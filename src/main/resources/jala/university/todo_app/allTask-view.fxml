@@ -13,7 +13,8 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.AllTaskController">
    <left>
       <AnchorPane fx:id="filterByAnchorPane" prefHeight="600.0" prefWidth="115.0" BorderPane.alignment="CENTER">
          <ImageView fx:id="fliterByIcon" fitHeight="52.0" fitWidth="51.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">

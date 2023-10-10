@@ -2,10 +2,8 @@ package jala.university.todo_app.controllers;
 
 import static com.mongodb.client.model.Filters.eq;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
+import com.mongodb.client.model.Filters;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -19,6 +17,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import com.mongodb.client.model.Filters.*;
@@ -56,10 +57,13 @@ public class DashboardController {
     private MongoClient mongoClient;
     private MongoDatabase database;
     private MongoCollection<Document> collectionUsuarios;
+    private MongoCollection<Document> collectionTareas ;
+
 
     @FXML
     void allTask(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/allTask-view.fxml");
+
     }
 
     @FXML
@@ -70,7 +74,6 @@ public class DashboardController {
     @FXML
     public void completedTask(MouseEvent mouseEvent) {
         loadPage("/jala/university/todo_app/completedTask-view.fxml");
-
     }
 
 
@@ -83,6 +86,7 @@ public class DashboardController {
 
     @FXML
     public void initialize(){
+        //Mostrar el nombre de usuario actual (próximamente una foto).
         connectToDatabase();
         ObjectId userId = LoginController.getUserId();
         Document usuario = collectionUsuarios.find(eq("_id", userId)).first();
@@ -116,5 +120,6 @@ public class DashboardController {
         mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
         database = mongoClient.getDatabase("ToDoApp");
         collectionUsuarios = database.getCollection("Usuarios");
+        collectionTareas = database.getCollection("Tareas");
     }
 }
