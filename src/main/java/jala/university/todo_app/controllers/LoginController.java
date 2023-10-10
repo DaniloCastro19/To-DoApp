@@ -5,19 +5,12 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.result.InsertOneResult;
 
 import java.io.IOException;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import jala.university.todo_app.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,6 +24,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController {
@@ -66,6 +60,8 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
+    private static ObjectId userId = new ObjectId("6524a67c727101572516340f");
+
     @FXML
     void registerRedirection(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/register-view.fxml"));
@@ -91,6 +87,7 @@ public class LoginController {
             String password = passwordField.getText();
             if (existingUser != null && BCrypt.checkpw(password, existingUser.getString("password"))) {
                 System.out.println("Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now().plusYears(1));
+                userId = existingUser.getObjectId("_id");
                 root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));
                 scene = new Scene(root);
 
@@ -127,5 +124,7 @@ public class LoginController {
         return matcher.matches();
     }
 
-
+    static ObjectId getUserId() {
+        return userId;
+    }
 }

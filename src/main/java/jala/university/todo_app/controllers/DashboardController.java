@@ -1,5 +1,11 @@
 package jala.university.todo_app.controllers;
 
+import static com.mongodb.client.model.Filters.eq;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,6 +18,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import org.bson.Document;
+import org.bson.types.ObjectId;
+import com.mongodb.client.model.Filters.*;
 
 public class DashboardController {
 
@@ -39,6 +48,10 @@ public class DashboardController {
     @FXML
     private Button todayTaskButton;
 
+    private MongoClient mongoClient;
+    private MongoDatabase database;
+    private MongoCollection<Document> collectionUsuarios;
+
     @FXML
     void allTask(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/allTask-view.fxml");
@@ -58,6 +71,12 @@ public class DashboardController {
 
     @FXML
     void createNewTask(MouseEvent mouseEvent) throws IOException {
+        connectToDatabase();
+        ObjectId userId = LoginController.getUserId();
+        Document usuario = collectionUsuarios.find(eq("_id", userId)).first();
+        assert usuario != null;
+        System.out.println(usuario.get("nombre"));
+
 
         loadPage("/jala/university/todo_app/newTask-view.fxml");
 
@@ -81,4 +100,9 @@ public class DashboardController {
     }
 
 
+    void connectToDatabase() {
+        mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
+        database = mongoClient.getDatabase("ToDoApp");
+        collectionUsuarios = database.getCollection("Usuarios");
+    }
 }
