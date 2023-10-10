@@ -6,6 +6,8 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.result.InsertOneResult;
+
+import java.io.IOException;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -14,16 +16,28 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jala.university.todo_app.Login;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import org.bson.Document;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController {
+
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
 
     public static MongoClient mongoClient;
     public static MongoDatabase database;
@@ -53,6 +67,18 @@ public class LoginController {
     private TextField passwordField;
 
     @FXML
+    void registerRedirection(MouseEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/register-view.fxml"));
+        scene = new Scene(root);
+
+        stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    @FXML
     void loginEvent(ActionEvent event) {
         try {
             mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
@@ -65,6 +91,14 @@ public class LoginController {
             String password = passwordField.getText();
             if (existingUser != null && BCrypt.checkpw(password, existingUser.getString("password"))) {
                 System.out.println("Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now().plusYears(1));
+                root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));
+                scene = new Scene(root);
+
+                stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+                stage.setScene(scene);
+
+                stage.show();
 
             } else {
                 System.out.println("Usuario y/o contraseña incorrectos.");
@@ -73,7 +107,6 @@ public class LoginController {
             System.out.println(e.getMessage());
         }
     }
-
 
     boolean checkEmail(String email) {
         MongoCollection<Document> collection = database.getCollection("Usuarios");
@@ -93,5 +126,6 @@ public class LoginController {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+
 
 }

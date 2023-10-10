@@ -15,7 +15,7 @@
       <Image url="@../../../img/register_img.png" />
    </ImageView>
    <Pane fx:id="registerFormPane" layoutX="432.0" layoutY="-3.0" prefHeight="606.0" prefWidth="468.0" style="-fx-background-color: #4991C5;">
-      <Button fx:id="registerButton" layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onMouseClicked="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;" text="Register Now">
+      <Button fx:id="registerButton" layoutX="187.0" layoutY="459.0" mnemonicParsing="false" onAction="#onRegisterButtonClick" prefHeight="27.0" prefWidth="94.0" style="-fx-background-color: FFDDD2;" text="Register Now">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -58,7 +58,7 @@
             <Font name="Berlin Sans FB" size="12.0" />
          </font>
       </Label>
-      <Label fx:id="loginLinkLabel" layoutX="288.0" layoutY="506.0" prefHeight="19.0" prefWidth="45.0" text="Log in" textFill="#0004ff" underline="true">
+      <Label fx:id="loginLinkLabel" layoutX="288.0" layoutY="506.0" onMouseClicked="#logInRedirection" prefHeight="19.0" prefWidth="45.0" text="Log in" textFill="#0004ff">
          <font>
             <Font name="Berlin Sans FB" size="11.0" />
          </font>

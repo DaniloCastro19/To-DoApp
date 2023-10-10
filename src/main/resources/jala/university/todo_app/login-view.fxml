@@ -4,15 +4,16 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #005DB9;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.LoginController">
+<Pane fx:id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #005DB9;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.LoginController">
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
-   <Pane fx:id="formPane" layoutX="256.0" layoutY="93.0" prefHeight="414.0" prefWidth="389.0" style="-fx-background-color: ffffff; -fx-background-radius: 10;">
+   <Pane fx:id="registerLink" layoutX="256.0" layoutY="93.0" prefHeight="414.0" prefWidth="389.0" style="-fx-background-color: ffffff; -fx-background-radius: 10;">
       <opaqueInsets>
          <Insets />
       </opaqueInsets>
@@ -28,7 +29,6 @@
             </font>
          </Label>
          <TextField fx:id="emailField" focusTraversable="false" layoutX="120.0" layoutY="157.0" promptText="Enter your e-mail" />
-         <TextField fx:id="passwordField" focusTraversable="false" layoutX="120.0" layoutY="207.0" promptText="Enter your password" />
          <Button fx:id="loginButton" layoutX="149.0" layoutY="256.0" mnemonicParsing="false" onAction="#loginEvent" prefHeight="23.0" prefWidth="91.0" style="-fx-background-color: FFDDD2;" text="Login">
             <font>
                <Font name="Berlin Sans FB" size="13.0" />
@@ -42,7 +42,7 @@
                <Font name="Berlin Sans FB" size="12.0" />
             </font>
          </Label>
-         <Label fx:id="loginSubtitle11" layoutX="219.0" layoutY="300.0" prefHeight="29.0" prefWidth="69.0" text="Register now" textFill="#005db9">
+         <Label fx:id="loginLink" layoutX="219.0" layoutY="300.0" onMouseClicked="#registerRedirection" prefHeight="29.0" prefWidth="69.0" text="Register now" textFill="#005db9">
             <font>
                <Font name="Berlin Sans FB" size="12.0" />
             </font>
@@ -50,6 +50,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </Label>
+         <PasswordField fx:id="passwordField" layoutX="120.0" layoutY="207.0" promptText="Enter your password" />
       </children>
    </Pane>
 </Pane>
