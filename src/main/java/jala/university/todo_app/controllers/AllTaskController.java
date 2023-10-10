@@ -3,12 +3,14 @@ package jala.university.todo_app.controllers;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -67,9 +69,26 @@ public class AllTaskController {
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         for (Document tarea: tareasDelUsuario){
             //TODO: Crear componentes.
+            //taskName.setText(tarea.getString("nombre"));
+            AnchorPane userTask = new AnchorPane();
 
-            taskName.setText(tarea.getString("nombre"));
-            System.out.println(tarea.getString("nombre"));
+            VBox.setMargin(userTask, new javafx.geometry.Insets(0,0,20,0));
+            userTask.setPrefWidth(task.getPrefWidth());
+            userTask.setPrefHeight(task.getPrefHeight());
+            userTask.setStyle(task.getStyle());
+            taskContainer.getChildren().add(userTask);
+
+            TextField userTaskName = new TextField();
+            userTaskName.setStyle(taskName.getStyle());
+            userTaskName.setPrefWidth(taskName.getPrefWidth());
+            userTaskName.setPrefHeight(taskName.getPrefHeight());
+            userTaskName.setEditable(false);
+            userTaskName.setText(tarea.getString("nombre"));
+            userTaskName.setLayoutX(taskName.getLayoutX());
+            userTaskName.setLayoutY(taskName.getLayoutY());
+            userTaskName.setFont(taskName.getFont());
+            userTaskName.setAlignment(Pos.CENTER);
+            userTask.getChildren().add(userTaskName);
         }
 
     }
