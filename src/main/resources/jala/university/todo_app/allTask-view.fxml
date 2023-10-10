@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
@@ -13,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.AllTaskController">
+<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.AllTaskController">
    <left>
       <AnchorPane fx:id="filterByAnchorPane" prefHeight="600.0" prefWidth="115.0" BorderPane.alignment="CENTER">
          <ImageView fx:id="fliterByIcon" fitHeight="52.0" fitWidth="51.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -56,12 +57,12 @@
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #161A21;" BorderPane.alignment="CENTER">
          <content>
-            <VBox fx:id="taskContainer" prefHeight="542.0" prefWidth="659.0" style="-fx-background-color: #161A21;">
+            <VBox fx:id="taskContainer" onMouseClicked="#doneTask" prefHeight="498.0" prefWidth="666.0" style="-fx-background-color: #161A21;">
                <AnchorPane fx:id="task" prefHeight="59.0" prefWidth="650.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 0 10 0 10;" visible="false">
                   <VBox.margin>
                      <Insets />
                   </VBox.margin>
-                  <TextField alignment="CENTER" editable="false" layoutX="282.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: trasparent; -fx-border-width: 1; -fx-border-color: #4A5051; -fx-border-radius: 0 10 0 10;" text="Categoría">
+                  <TextField alignment="CENTER" editable="false" layoutX="294.0" layoutY="10.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: trasparent; -fx-border-width: 1; -fx-border-color: #4A5051; -fx-border-radius: 0 10 0 10;" text="Sin categoría">
                      <font>
                         <Font name="Berlin Sans FB" size="13.0" />
                      </font>
@@ -69,7 +70,7 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </TextField>
-                  <TextField fx:id="taskName" alignment="CENTER" editable="false" layoutX="114.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 0 10 0 10;" text="Tarea">
+                  <TextField fx:id="taskName" alignment="CENTER" editable="false" layoutX="124.0" layoutY="10.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 0 10 0 10;" text="Tarea">
                      <font>
                         <Font name="Berlin Sans FB" size="13.0" />
                      </font>
@@ -77,14 +78,11 @@
                         <Cursor fx:constant="HAND" />
                      </cursor>
                   </TextField>
-                  <ImageView fx:id="priority" fitHeight="44.0" fitWidth="74.0" layoutX="22.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="7.200000000000003" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="593.2" AnchorPane.topAnchor="8.0">
-                     <image>
-                        <Image url="@../../../img/icons8-alta-prioridad-48.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
+                  <CheckBox fx:id="markAsDone" layoutX="14.0" layoutY="16.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="96.0" text="Mark as Done">
+                     <font>
+                        <Font name="Berlin Sans FB" size="12.0" />
+                     </font>
+                  </CheckBox>
                </AnchorPane>
             </VBox>
          </content>

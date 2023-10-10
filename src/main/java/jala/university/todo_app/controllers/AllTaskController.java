@@ -4,10 +4,12 @@ import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
@@ -62,22 +64,34 @@ public class AllTaskController {
     private TextField taskName;
 
     @FXML
+    private CheckBox markAsDone;
+    @FXML
     public void initialize(){
         //Mostrar el nombre de usuario actual (próximamente una foto).
         connectToDatabase();
         ObjectId userId = LoginController.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         for (Document tarea: tareasDelUsuario){
-            //TODO: Crear componentes.
-            //taskName.setText(tarea.getString("nombre"));
-            AnchorPane userTask = new AnchorPane();
 
+
+            //Componente de Tareas
+            AnchorPane userTask = new AnchorPane();
             VBox.setMargin(userTask, new javafx.geometry.Insets(0,0,20,0));
             userTask.setPrefWidth(task.getPrefWidth());
             userTask.setPrefHeight(task.getPrefHeight());
             userTask.setStyle(task.getStyle());
-            taskContainer.getChildren().add(userTask);
 
+            //Componente CheckBox
+            CheckBox checkTask = new CheckBox();
+            checkTask.setLayoutX(markAsDone.getLayoutX());
+            checkTask.setLayoutY(markAsDone.getLayoutY());
+            checkTask.setPrefHeight(markAsDone.getPrefHeight());
+            checkTask.setPrefWidth(markAsDone.getPrefWidth());
+            checkTask.setFont(markAsDone.getFont());
+            checkTask.setText("Mark as done");
+            userTask.getChildren().add(checkTask);
+
+            //Título de la tarea
             TextField userTaskName = new TextField();
             userTaskName.setStyle(taskName.getStyle());
             userTaskName.setPrefWidth(taskName.getPrefWidth());
@@ -89,6 +103,7 @@ public class AllTaskController {
             userTaskName.setFont(taskName.getFont());
             userTaskName.setAlignment(Pos.CENTER);
             userTask.getChildren().add(userTaskName);
+            taskContainer.getChildren().add(userTask);
         }
 
     }
@@ -99,5 +114,7 @@ public class AllTaskController {
         collectionUsuarios = database.getCollection("Usuarios");
         collectionTareas = database.getCollection("Tareas");
     }
-
+    @FXML
+    public void doneTask(MouseEvent mouseEvent) {
+    }
 }
