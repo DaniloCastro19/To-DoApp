@@ -3,7 +3,12 @@ package jala.university.todo_app.controllers;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -15,9 +20,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -30,6 +37,17 @@ public class AllTaskController {
     private MongoCollection<Document> collectionUsuarios;
 
     private MongoCollection<Document> collectionTareas;
+
+
+
+    private Parent root;
+
+    private Stage stage;
+
+    private Scene scene;
+
+
+    private DashboardController dashboardController;
 
     @FXML
     private BorderPane AllTaskBorderPane;
@@ -52,6 +70,10 @@ public class AllTaskController {
 
     @FXML
     private TextField searchField;
+
+    @FXML
+    private ImageView moreInfoImg;
+
 
     @FXML
     private ImageView searchIcon;
@@ -142,6 +164,16 @@ public class AllTaskController {
                 iconoPrioridad.setImage(icon);
             }
 
+            ImageView iconoDetalles = new ImageView();
+            Image icon = new Image(getClass().getResourceAsStream("/img/icons8-información-48.png"));
+            iconoDetalles.setFitHeight(moreInfoImg.getFitHeight());
+            iconoDetalles.setFitWidth(moreInfoImg.getFitWidth());
+            iconoDetalles.setLayoutX(moreInfoImg.getLayoutX());
+            iconoDetalles.setLayoutY(moreInfoImg.getLayoutY());
+            iconoDetalles.setImage(icon);
+            iconoDetalles.cursorProperty().set(Cursor.HAND);
+            userTask.getChildren().add(iconoDetalles);
+
             taskContainer.getChildren().add(userTask);
 
         }
@@ -157,5 +189,29 @@ public class AllTaskController {
     }
     @FXML
     public void doneTask(MouseEvent mouseEvent) {
+    }
+
+    @FXML
+    public void moreDetailsRedirection(MouseEvent event) throws IOException {
+        loadPage("/jala/university/todo_app/updateTask-view.fxml");
+        System.out.println("ola");
+    }
+
+    private void loadPage(String page){
+        Parent root = null;
+        BorderPane dashboard = getDashboard();
+        try{
+            root = FXMLLoader.load(getClass().getResource(page));
+            dashboard.setCenter(root);
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(page);
+    }
+
+    public BorderPane getDashboard(){
+        return dashboardController.getDashboard();
     }
 }

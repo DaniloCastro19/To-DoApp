@@ -26,9 +26,6 @@ import com.mongodb.client.model.Filters.*;
 
 public class DashboardController {
 
-
-
-
     @FXML
     private Button allTaskButton;
 
@@ -115,11 +112,14 @@ public class DashboardController {
     public void changeUserImg(MouseEvent mouseEvent) {
     }
 
-
     void connectToDatabase() {
         mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
         database = mongoClient.getDatabase("ToDoApp");
         collectionUsuarios = database.getCollection("Usuarios");
         collectionTareas = database.getCollection("Tareas");
+    }
+
+    public BorderPane getDashboard(){
+        return dashboard;
     }
 }
