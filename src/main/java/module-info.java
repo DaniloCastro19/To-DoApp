@@ -5,9 +5,9 @@ module jala.university.todo_app {
     requires org.mongodb.driver.sync.client;
     requires org.mongodb.bson;
     requires jasypt;
-    requires jBCrypt;
+  requires jBCrypt;
 
-    opens jala.university.todo_app to javafx.fxml;
+  opens jala.university.todo_app to javafx.fxml;
     exports jala.university.todo_app;
     exports jala.university.todo_app.controllers;
     opens jala.university.todo_app.controllers to javafx.fxml;
