@@ -13,7 +13,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.DashboardController">
+<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.DashboardController">
    <left>
       <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="131.0" style="-fx-background-color: #003049;" BorderPane.alignment="CENTER">
          <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas ">
