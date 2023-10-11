@@ -18,7 +18,7 @@
 <BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.AllTaskController">
    <left>
       <AnchorPane fx:id="filterByAnchorPane" prefHeight="600.0" prefWidth="115.0" BorderPane.alignment="CENTER">
-         <ImageView fx:id="fliterByIcon" fitHeight="52.0" fitWidth="51.0" layoutX="26.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="fliterByIcon" fitHeight="52.0" fitWidth="51.0" layoutX="32.0" layoutY="92.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@../../../img/icons8-filtrar-40.png" />
             </image>
@@ -26,7 +26,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Text fill="WHITE" layoutX="14.0" layoutY="81.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrar por prioridad" textAlignment="CENTER" wrappingWidth="74.13241577148438">
+         <Text fill="WHITE" layoutX="20.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtrar por prioridad" textAlignment="CENTER" wrappingWidth="74.13241577148438">
             <font>
                <Font name="Berlin Sans FB" size="18.0" />
             </font>
@@ -34,7 +34,7 @@
       </AnchorPane>
    </left>
    <top>
-      <AnchorPane prefHeight="59.0" prefWidth="900.0" BorderPane.alignment="CENTER">
+      <AnchorPane fx:id="topAnchorPane" prefHeight="59.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <Label fx:id="allTaskTitleLabel" layoutX="170.0" layoutY="3.0" prefHeight="53.0" prefWidth="280.0" text="Todas las tareas" textFill="WHITE">
             <font>
                <Font name="Berlin Sans FB" size="40.0" />
@@ -123,7 +123,8 @@
                   <ImageView fx:id="priorityImg" fitHeight="34.0" fitWidth="44.0" layoutX="451.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../img/icons8-alta-prioridad-48.png" />
-                     </image></ImageView>
+                     </image>
+                  </ImageView>
                   <ImageView fx:id="moreInfoImg" fitHeight="34.0" fitWidth="44.0" layoutX="556.0" layoutY="12.0" onMouseClicked="#moreDetailsRedirection" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../../img/icons8-información-48.png" />

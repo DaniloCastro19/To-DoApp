@@ -9,10 +9,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -47,7 +44,9 @@ public class AllTaskController {
     private Scene scene;
 
 
-    private DashboardController dashboardController;
+
+    @FXML
+    private AnchorPane topAnchorPane;
 
     @FXML
     private BorderPane AllTaskBorderPane;
@@ -97,8 +96,14 @@ public class AllTaskController {
         connectToDatabase();
         ObjectId userId = LoginController.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
-        for (Document tarea: tareasDelUsuario){
+        int cantidadTareas = 0;
+        int iteration = 0;
 
+        for (Document tarea: tareasDelUsuario){
+            cantidadTareas++;
+        }
+
+        for (Document tarea: tareasDelUsuario){
 
             //Componente de Tareas
             AnchorPane userTask = new AnchorPane();
@@ -156,25 +161,46 @@ public class AllTaskController {
             if(tarea.getString("prioridad").equals("High")){
                 Image icon = new Image(getClass().getResourceAsStream("/img/icons8-alta-prioridad-48.png"));
                 iconoPrioridad.setImage(icon);
+                iconoPrioridad.cursorProperty().set(Cursor.HAND);
+                Tooltip tooltip = new Tooltip("Prioridad Alta.");
+                Tooltip.install(iconoPrioridad,tooltip);
+
             }else if(tarea.getString("prioridad").equals("Mid")){
                 Image icon = new Image(getClass().getResourceAsStream("/img/icons8-prioridad-media-48.png"));
                 iconoPrioridad.setImage(icon);
+                iconoPrioridad.cursorProperty().set(Cursor.HAND);
+                Tooltip tooltip = new Tooltip("Prioridad Media.");
+                Tooltip.install(iconoPrioridad,tooltip);
             }else if(tarea.getString("prioridad").equals("Low")){
                 Image icon = new Image(getClass().getResourceAsStream("/img/icons8-baja-prioridad-40.png"));
                 iconoPrioridad.setImage(icon);
+                iconoPrioridad.cursorProperty().set(Cursor.HAND);
+                Tooltip tooltip = new Tooltip("Prioridad Baja.");
+                Tooltip.install(iconoPrioridad,tooltip);
             }
 
-            ImageView iconoDetalles = new ImageView();
-            Image icon = new Image(getClass().getResourceAsStream("/img/icons8-información-48.png"));
-            iconoDetalles.setFitHeight(moreInfoImg.getFitHeight());
-            iconoDetalles.setFitWidth(moreInfoImg.getFitWidth());
-            iconoDetalles.setLayoutX(moreInfoImg.getLayoutX());
-            iconoDetalles.setLayoutY(moreInfoImg.getLayoutY());
-            iconoDetalles.setImage(icon);
-            iconoDetalles.cursorProperty().set(Cursor.HAND);
-            userTask.getChildren().add(iconoDetalles);
+            //Boton detalles
 
+            ImageView[] iconoDetalles = new ImageView[cantidadTareas];
+            Image icon = new Image(getClass().getResourceAsStream("/img/icons8-información-48.png"));
+            iconoDetalles[iteration] = new ImageView(icon);
+            iconoDetalles[iteration].setFitHeight(moreInfoImg.getFitHeight());
+            iconoDetalles[iteration].setFitWidth(moreInfoImg.getFitWidth());
+            iconoDetalles[iteration].setLayoutX(moreInfoImg.getLayoutX());
+            iconoDetalles[iteration].setLayoutY(moreInfoImg.getLayoutY());
+            iconoDetalles[iteration].setImage(icon);
+            iconoDetalles[iteration].cursorProperty().set(Cursor.HAND);
+
+
+            userTask.getChildren().add(iconoDetalles[iteration]);
+
+            iconoDetalles[iteration].setOnMouseClicked(event -> {
+                loadPage("/jala/university/todo_app/updateTask-view.fxml");
+                filterByAnchorPane.setVisible(false);
+                topAnchorPane.setVisible(false);
+            });
             taskContainer.getChildren().add(userTask);
+            iteration++;
 
         }
 
@@ -199,10 +225,10 @@ public class AllTaskController {
 
     private void loadPage(String page){
         Parent root = null;
-        BorderPane dashboard = getDashboard();
+        //BorderPane dashboard = getDashboard();
         try{
             root = FXMLLoader.load(getClass().getResource(page));
-            dashboard.setCenter(root);
+            AllTaskBorderPane.setCenter(root);
 
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -210,8 +236,10 @@ public class AllTaskController {
 
         System.out.println(page);
     }
-
+/*
     public BorderPane getDashboard(){
         return dashboardController.getDashboard();
     }
+ */
+
 }
