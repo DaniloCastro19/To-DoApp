@@ -90,6 +90,7 @@ public class AllTaskController {
 
     @FXML
     private CheckBox markAsDone;
+    public static Document tareaActual;
     @FXML
     public void initialize(){
         //Mostrar el nombre de usuario actual (próximamente una foto).
@@ -195,6 +196,7 @@ public class AllTaskController {
             userTask.getChildren().add(iconoDetalles[iteration]);
 
             iconoDetalles[iteration].setOnMouseClicked(event -> {
+                tareaActual = tarea;
                 loadPage("/jala/university/todo_app/updateTask-view.fxml");
                 filterByAnchorPane.setVisible(false);
                 topAnchorPane.setVisible(false);
@@ -220,7 +222,6 @@ public class AllTaskController {
     @FXML
     public void moreDetailsRedirection(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/updateTask-view.fxml");
-        System.out.println("ola");
     }
 
     private void loadPage(String page){
