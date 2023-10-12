@@ -36,7 +36,7 @@ public class UpdateTaskController implements Initializable {
   private TextArea updateTask;
 
   @FXML
-  private TextField updateTaskTitle;
+  private TextField taskTitle;
 
   @FXML
   void createTask(MouseEvent event) {
@@ -45,8 +45,8 @@ public class UpdateTaskController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    updateTaskTitle.setText(AllTaskController.tareaActual.getString("nombre"));
-    updateTaskTitle.setEditable(true);
+    taskTitle.setText(AllTaskController.tareaActual.getString("nombre"));
+    taskTitle.setEditable(true);
     /*updateTask.setText(AllTaskController.tareaActual.getString("descripcion"));
     updateTask.setEditable(false);*/
   }
