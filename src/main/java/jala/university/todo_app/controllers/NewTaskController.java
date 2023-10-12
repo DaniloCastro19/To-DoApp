@@ -27,7 +27,7 @@ import java.util.ResourceBundle;
 public class NewTaskController implements Initializable {
     Alert alertUsuarioRegistrado = new Alert(Alert.AlertType.INFORMATION);
 
-    LocalDateTime fechaHoraActual;
+    LocalDate fechaHoraActual;
 
 
     @FXML
@@ -76,7 +76,7 @@ public class NewTaskController implements Initializable {
     @FXML
     void createTask(MouseEvent event) {
         connectToDatabase();
-        fechaHoraActual =LocalDateTime.now();
+        fechaHoraActual =LocalDate.now();
         ObjectId userId = LoginController.getUserId();
         Document tarea = new Document("nombre", newTaskTitleTextField.getText())
             .append("descripcion", newTaskDescriptionArea.getText())
