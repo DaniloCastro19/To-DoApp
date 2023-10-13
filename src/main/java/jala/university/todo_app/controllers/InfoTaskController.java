@@ -16,7 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class UpdateTaskController implements Initializable {
+public class InfoTaskController implements Initializable {
 
   @FXML
   private AnchorPane anchorPane;
@@ -26,6 +26,9 @@ public class UpdateTaskController implements Initializable {
 
   @FXML
   private Label date;
+
+  @FXML
+  private Button delete;
 
   @FXML
   private Label priority;
@@ -40,29 +43,40 @@ public class UpdateTaskController implements Initializable {
   private TextField taskTitle;
 
   @FXML
-  void updateTask(MouseEvent event) {
-    String taskId = DatabaseConnection.getCurrentTask().getObjectId("_id").toString();
-    DatabaseConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText());
+  public void updateTask(MouseEvent event) throws IOException {
+    loadPage("/jala/university/todo_app/updateTask-view.fxml");
+  }
 
+  @FXML
+  void deleteTask(MouseEvent event) {
+    System.out.println(DatabaseConnection.getCurrentTask().toJson());
+    String taskId = DatabaseConnection.getCurrentTask().getObjectId("_id").toString();
+    DatabaseConnection.deleteTask(taskId);
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     taskTitle.setText(DatabaseConnection.getCurrentTask().getString("nombre"));
-    taskTitle.setEditable(true);
+    taskTitle.setEditable(false);
     taskDescription.setText(DatabaseConnection.getCurrentTask().getString("descripcion"));
-    taskDescription.setEditable(true);
+    taskDescription.setEditable(false);
   }
 
-  private void loadPage(String page) {
+  private void loadPage(String page){
     Parent root = null;
     //BorderPane dashboard = getDashboard();
-    try {
+    try{
       root = FXMLLoader.load(getClass().getResource(page));
+      AnchorPane.setTopAnchor(root, 0.0);
+      AnchorPane.setBottomAnchor(root, 0.0);
+      AnchorPane.setLeftAnchor(root, 0.0);
+      AnchorPane.setRightAnchor(root, 0.0);
+      anchorPane.getChildren().add(root);
 
-      //anchorPane.setClip(root);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
+    System.out.println(page);
   }
 }

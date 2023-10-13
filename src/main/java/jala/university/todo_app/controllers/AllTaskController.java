@@ -2,6 +2,7 @@ package jala.university.todo_app.controllers;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -90,12 +91,11 @@ public class AllTaskController {
 
     @FXML
     private CheckBox markAsDone;
-    public static Document tareaActual;
     @FXML
     public void initialize(){
         //Mostrar el nombre de usuario actual (próximamente una foto).
         connectToDatabase();
-        ObjectId userId = LoginController.getUserId();
+        ObjectId userId = DatabaseConnection.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
@@ -196,8 +196,8 @@ public class AllTaskController {
             userTask.getChildren().add(iconoDetalles[iteration]);
 
             iconoDetalles[iteration].setOnMouseClicked(event -> {
-                tareaActual = tarea;
-                loadPage("/jala/university/todo_app/updateTask-view.fxml");
+                DatabaseConnection.setCurrentTask(tarea);
+                loadPage("/jala/university/todo_app/infoTask-view.fxml");
                 filterByAnchorPane.setVisible(false);
                 topAnchorPane.setVisible(false);
             });
@@ -221,7 +221,7 @@ public class AllTaskController {
 
     @FXML
     public void moreDetailsRedirection(MouseEvent event) throws IOException {
-        loadPage("/jala/university/todo_app/updateTask-view.fxml");
+        loadPage("/jala/university/todo_app/infoTask-view.fxml");
     }
 
     private void loadPage(String page){

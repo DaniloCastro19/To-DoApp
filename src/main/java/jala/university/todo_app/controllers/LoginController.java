@@ -61,8 +61,6 @@ public class LoginController {
     @FXML
     private TextField passwordField;
 
-    private static ObjectId userId = new ObjectId("6524a67c727101572516340f");
-
     @FXML
     void registerRedirection(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/register-view.fxml"));
@@ -78,17 +76,7 @@ public class LoginController {
     @FXML
     void loginEvent(ActionEvent event) {
         try {
-            mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
-            database = mongoClient.getDatabase("ToDoApp");
-            MongoCollection<Document> collection = database.getCollection("Usuarios");
-            if (!validateEmail(emailField.getText()) && !checkEmail(emailField.getText())) {
-                return;
-            }
-            Document existingUser = collection.find(new Document("email", emailField.getText())).first();
-            String password = passwordField.getText();
-            if (existingUser != null && BCrypt.checkpw(password, existingUser.getString("password"))) {
-                System.out.println("Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now().plusYears(1));
-                userId = existingUser.getObjectId("_id");
+            if (DatabaseConnection.login(emailField.getText(), passwordField.getText())) {
                 root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));
                 scene = new Scene(root);
 
@@ -97,36 +85,10 @@ public class LoginController {
                 stage.setScene(scene);
 
                 stage.show();
-
-            } else {
-                System.out.println("Usuario y/o contraseña incorrectos.");
             }
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    public static boolean checkEmail(String email) {
-        MongoCollection<Document> collection = database.getCollection("Usuarios");
-        FindIterable<Document> iterable = collection.find();
-
-        for (Document document : iterable) {
-            if (document.containsValue(email)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    boolean validateEmail(String email) {
-        String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    static ObjectId getUserId() {
-        return userId;
-    }
 }

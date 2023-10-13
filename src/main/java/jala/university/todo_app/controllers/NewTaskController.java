@@ -4,6 +4,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import jala.university.todo_app.DatabaseConnection;
+import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -50,9 +51,8 @@ public class NewTaskController implements Initializable {
 
     @FXML
     void createTask(MouseEvent event) {
-        connectToDatabase();
         fechaHoraActual =LocalDate.now();
-        ObjectId userId = LoginController.getUserId();
+        ObjectId userId = DatabaseConnection.getUserId();
         DatabaseConnection.createTask(newTaskTitleTextField.getText(),
             newTaskDescriptionArea.getText(),
             categoryField.getText(),
