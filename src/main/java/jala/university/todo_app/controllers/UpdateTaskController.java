@@ -32,6 +32,11 @@ public class UpdateTaskController implements Initializable {
 
   @FXML
   private Button update;
+  @FXML
+  private Label taskPriorityLabel;
+  @FXML
+  private Label taskCreationDateLabel;
+
 
   @FXML
   private TextArea taskDescription;
@@ -52,6 +57,8 @@ public class UpdateTaskController implements Initializable {
     taskTitle.setEditable(true);
     taskDescription.setText(DatabaseConnection.getCurrentTask().getString("descripcion"));
     taskDescription.setEditable(true);
+    taskCreationDateLabel.setText(String.valueOf(DatabaseConnection.getCurrentTask().getDate("FechaCreacion")));
+    taskPriorityLabel.setText(DatabaseConnection.getCurrentTask().getString("prioridad"));
   }
 
   private void loadPage(String page) {

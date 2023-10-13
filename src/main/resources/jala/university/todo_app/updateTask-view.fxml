@@ -15,24 +15,30 @@
       </font>
    </TextField>
    <TextArea fx:id="taskDescription" focusTraversable="false" layoutX="32.0" layoutY="75.0" prefHeight="103.0" prefWidth="270.0" promptText="Ingrese la descripción de la tarea" />
-   <Label fx:id="dateLabel" layoutX="32.0" layoutY="208.0" prefHeight="19.0" prefWidth="126.0" text="Fecha de creación:" textFill="#faf7f7">
+   <Label fx:id="dateLabel" layoutX="14.0" layoutY="209.0" prefHeight="19.0" prefWidth="126.0" text="Fecha de creación:" textFill="#faf7f7">
       <font>
          <Font name="Berlin Sans FB" size="16.0" />
       </font></Label>
-   <Label fx:id="priority" layoutX="35.0" layoutY="248.0" prefHeight="19.0" prefWidth="75.0" text="Prioridad:" textFill="#fafafa">
+   <Label fx:id="priority" layoutX="115.0" layoutY="255.0" prefHeight="19.0" prefWidth="75.0" text="Prioridad:" textFill="#fafafa">
       <font>
          <Font name="Berlin Sans FB" size="16.0" />
       </font></Label>
-   <Button fx:id="update" layoutX="87.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#updateTask" text="Hecho" />
-   <CheckBox fx:id="completeTask" layoutX="121.0" layoutY="286.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" text="Completada" textFill="WHITE" />
-   <Label fx:id="taskCreationDateLabel" layoutX="169.0" layoutY="209.0" textFill="WHITE">
+   <Button fx:id="update" layoutX="103.0" layoutY="339.0" mnemonicParsing="false" onMouseClicked="#updateTask" prefHeight="26.0" prefWidth="126.0" text="Hecho">
       <font>
-         <Font name="Berlin Sans FB" size="16.0" />
+         <Font name="Berlin Sans FB" size="14.0" />
+      </font></Button>
+   <CheckBox fx:id="completeTask" layoutX="110.0" layoutY="287.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="113.0" text="Completada" textFill="WHITE">
+      <font>
+         <Font name="Berlin Sans FB" size="14.0" />
+      </font></CheckBox>
+   <Label fx:id="taskPriorityLabel" alignment="CENTER" contentDisplay="CENTER" layoutX="180.0" layoutY="251.0" prefHeight="26.0" prefWidth="38.0" text="Mid" textAlignment="CENTER" textFill="#56c4bc">
+      <font>
+         <Font name="Berlin Sans FB" size="18.0" />
       </font>
    </Label>
-   <Label fx:id="taskPriorityLabel" layoutX="111.0" layoutY="249.0" textFill="WHITE">
+   <Label fx:id="taskCreationDateLabel" layoutX="140.0" layoutY="210.0" textFill="WHITE">
       <font>
-         <Font name="Berlin Sans FB" size="15.0" />
+         <Font name="Berlin Sans FB" size="16.0" />
       </font>
    </Label>
 </AnchorPane>

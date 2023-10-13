@@ -123,7 +123,7 @@ public class AllTaskController {
     @FXML
     public void initialize(){
         connectToDatabase();
-        ObjectId userId = LoginController.getUserId();
+        ObjectId userId = DatabaseConnection.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
@@ -370,7 +370,7 @@ public class AllTaskController {
         userTask.getChildren().add(iconoDetalles[iteration]);
 
         iconoDetalles[iteration].setOnMouseClicked(event -> {
-            tareaActual = tarea;
+            DatabaseConnection.setCurrentTask(tarea);
             loadPage("/jala/university/todo_app/updateTask-view.fxml");
             filterByAnchorPane.setVisible(false);
             topAnchorPane.setVisible(false);

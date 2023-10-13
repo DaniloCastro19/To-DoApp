@@ -44,7 +44,7 @@ public class DatabaseConnection {
         .append("descripcion", taskDescription)
         .append("categoria", category.toUpperCase())
         .append("prioridad", priority)
-        .append("Fecha de creación", fechaHoraActual)
+        .append("FechaCreacion", fechaHoraActual)
         .append("usuario", userId)
         .append("completada", false);
     collectionTareas.insertOne(tarea);

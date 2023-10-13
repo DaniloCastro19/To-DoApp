@@ -2,6 +2,7 @@ package jala.university.todo_app.controllers;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -88,7 +89,7 @@ public class CategoriesController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
         connectToDatabase();
-        ObjectId userId = LoginController.getUserId();
+        ObjectId userId = DatabaseConnection.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
