@@ -1,7 +1,6 @@
 package jala.university.todo_app.controllers;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -39,15 +38,15 @@ public class UpdateTaskController implements Initializable {
   private TextField taskTitle;
 
   @FXML
-  void createTask(MouseEvent event) {
-    System.out.println(AllTaskController.tareaActual.toJson());
+  void updateTask(MouseEvent event) {
+    String taskId = "6525a6518b6b300d4ad24dcb";
+    DatabaseConnection.updateTask(taskId, updateTaskTitle.getText(), updateTask.getText());
+
   }
 
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
-    taskTitle.setText(AllTaskController.tareaActual.getString("nombre"));
-    taskTitle.setEditable(true);
-    /*updateTask.setText(AllTaskController.tareaActual.getString("descripcion"));
-    updateTask.setEditable(false);*/
+  @FXML
+  void deleteTask(MouseEvent event) {
+    String taskId = "6525a6518b6b300d4ad24dcb";
+    DatabaseConnection.deleteTask(taskId);
   }
 }

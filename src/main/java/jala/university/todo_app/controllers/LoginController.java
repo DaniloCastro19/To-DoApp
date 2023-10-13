@@ -6,6 +6,7 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import jala.university.todo_app.DatabaseConnection;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.regex.Matcher;
@@ -105,7 +106,7 @@ public class LoginController {
         }
     }
 
-    boolean checkEmail(String email) {
+    public static boolean checkEmail(String email) {
         MongoCollection<Document> collection = database.getCollection("Usuarios");
         FindIterable<Document> iterable = collection.find();
 
@@ -116,6 +117,7 @@ public class LoginController {
         }
         return false;
     }
+
 
     boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";

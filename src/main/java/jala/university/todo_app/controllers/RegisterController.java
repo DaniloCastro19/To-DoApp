@@ -1,6 +1,6 @@
 package jala.university.todo_app.controllers;
 
-
+import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -8,40 +8,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import org.mindrot.jbcrypt.BCrypt;
-
 import com.mongodb.client.*;
-
-import com.mongodb.client.result.InsertOneResult;
-
 import java.io.IOException;
-import java.util.Objects;
 import java.util.regex.Matcher;
-
 import java.util.regex.Pattern;
-
-import org.bson.Document;
-
 import javafx.fxml.FXML;
-
 import javafx.scene.image.ImageView;
-
 import javafx.scene.layout.Pane;
-
 public class RegisterController {
 
     public static MongoClient mongoClient;
-
     public static MongoDatabase database;
     private Parent root;
     private Scene scene;
     private Stage stage;
-
-
     Alert alertUsuarioRegistrado = new Alert(Alert.AlertType.INFORMATION);
-
-
     @FXML
     private Label appSectionLabel;
     @FXML
@@ -77,35 +58,28 @@ public class RegisterController {
 
     @FXML
     void onRegisterButtonClick() {
-
         try {
             eraseAlerts();
-            mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
-            database = mongoClient.getDatabase("ToDoApp");
-            MongoCollection<Document> collection = database.getCollection("Usuarios");
-            Document existingUser = collection.find(new Document("email", userEmailField.getText())).first();
-            if(fieldValidation(existingUser)){
-                return;
-            }else {
-                String password = userPasswordField.getText();
-                String repeatPassword = repeatPasswordField.getText();
+            String userName = userNameField.getText();
+            String userEmail = userEmailField.getText();
+            String password = userPasswordField.getText();
+            String repeatPassword = repeatPasswordField.getText();
+            fieldValidation(userName, userEmail, password, repeatPassword);
+            boolean registrationSuccess = DatabaseConnection.createUser(userName, userEmail, password);
 
-                if(password.equals(repeatPassword)){
-                    String contra = BCrypt.hashpw(password, BCrypt.gensalt());
-                    Document newUsuario = new Document("nombre", userNameField.getText()).append("email", userEmailField.getText()).append("password", contra);
-                    System.out.println(contra);
-                    InsertOneResult result = collection.insertOne(newUsuario);
-                    alertUsuarioRegistrado.setTitle("Estado de registro");
-                    alertUsuarioRegistrado.setHeaderText(null);
-                    alertUsuarioRegistrado.setContentText("Usuario registrado con exito.");
-                    alertUsuarioRegistrado.initStyle(StageStyle.UTILITY);
-                    alertUsuarioRegistrado.showAndWait();
-                }else {
-                    System.out.println("Contraseña incorrecta");
-                }
-
+            if (registrationSuccess) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Estado de registro");
+                alert.setHeaderText(null);
+                alert.setContentText("Usuario registrado con éxito.");
+                alert.showAndWait();
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error de registro");
+                alert.setHeaderText(null);
+                alert.setContentText("El registro de usuario ha fallado. Por favor, inténtalo de nuevo.");
+                alert.showAndWait();
             }
-
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -115,36 +89,34 @@ public class RegisterController {
     void logInRedirection(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/login-view.fxml"));
         scene = new Scene(root);
-
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
         stage.setScene(scene);
-
         stage.show();
     }
-    boolean fieldValidation(Document existingUser ) {
-        if(userNameField.getText().isEmpty()){
-            nameFieldAlertLabel.setText("Campo vacio");
-            return true;
+    private boolean fieldValidation(String userName, String userEmail, String password, String repeatPassword) {
+        boolean isValid = true;
+        if (userName.isEmpty()) {
+            nameFieldAlertLabel.setText("Campo vacío");
+            isValid = false;
         }
-        if (!validateEmail(userEmailField.getText())) {
+        if (!validateEmail(userEmail)) {
             emailFieldAlertLabel.setText("Correo electrónico inválido.");
-            return true;
-        }
-        if (existingUser != null) {
+            isValid = false;
+        }else if (registerUser != null) {
             emailFieldAlertLabel.setText("Correo electrónico ya registrado.");
-            return true;
+            isValid = false;
         }
         if (userPasswordField.getText().isEmpty()) {
             passwordFieldAlertLabel.setText("Campo de contraseña vacío.");
-            return true;
+            isValid = false;
         }
-        if (!userPasswordField.getText().equals(repeatPasswordField.getText())) {
+        if (!password.equals(repeatPassword)) {
             repeatPasswordAlertLabel.setText("Las contraseñas no coinciden.");
-            return true;
+            isValid = false;
         }
-        return false;
+        return isValid;
     }
+
     boolean validateEmail(String email) {
         String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
         Pattern pattern = Pattern.compile(regex);
