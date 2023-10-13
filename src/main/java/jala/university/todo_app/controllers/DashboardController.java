@@ -4,6 +4,7 @@ import static com.mongodb.client.model.Filters.eq;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
+import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -57,6 +58,7 @@ public class DashboardController {
     private MongoCollection<Document> collectionTareas ;
 
 
+
     @FXML
     void allTask(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/allTask-view.fxml");
@@ -85,7 +87,7 @@ public class DashboardController {
     public void initialize(){
         //Mostrar el nombre de usuario actual (próximamente una foto).
         connectToDatabase();
-        ObjectId userId = LoginController.getUserId();
+        ObjectId userId = DatabaseConnection.getUserId();
         Document usuario = collectionUsuarios.find(eq("_id", userId)).first();
         assert usuario != null;
         String userName = (String) usuario.get("nombre");
@@ -122,4 +124,6 @@ public class DashboardController {
     public BorderPane getDashboard(){
         return dashboard;
     }
+
+
 }

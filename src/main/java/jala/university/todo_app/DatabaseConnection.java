@@ -7,7 +7,14 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.UpdateOptions;
 import com.mongodb.client.model.Updates;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
@@ -18,6 +25,8 @@ public class DatabaseConnection {
   private static MongoDatabase database;
   private static MongoCollection<Document> collectionTareas;
   private static MongoCollection<Document>collectionUsuarios;
+  private static Document currentTask;
+  private static ObjectId userId = new ObjectId("6524a67c727101572516340f");
 
    static {
      mongoClient = MongoClients.create(
@@ -67,6 +76,72 @@ public class DatabaseConnection {
     }catch (Exception e){
       return false;
     }
+  }
+
+  public static boolean login(String emailField, String passwordField) {
+    try {
+      mongoClient = MongoClients.create(
+          "mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
+      database = mongoClient.getDatabase("ToDoApp");
+      MongoCollection<Document> collection = database.getCollection("Usuarios");
+      if (!validateEmail(emailField) && !checkEmail(emailField)) {
+        return false;
+      }
+      Document existingUser = collection.find(new Document("email", emailField)).first();
+
+      if (existingUser != null && BCrypt.checkpw(passwordField,
+          existingUser.getString("password"))) {
+        System.out.println(
+            "Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now()
+        );
+        userId = existingUser.getObjectId("_id");
+        return true;
+
+      } else {
+        System.out.println("Usuario y/o contraseña incorrectos.");
+        return false;
+      }
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
+      return false;
+    }
+
+  }
+
+   private static boolean checkEmail(String email) {
+    MongoCollection<Document> collection = database.getCollection("Usuarios");
+    FindIterable<Document> iterable = collection.find();
+
+    for (Document document : iterable) {
+      if (document.containsValue(email)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+
+  private static boolean validateEmail(String email) {
+    String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
+    Pattern pattern = Pattern.compile(regex);
+    Matcher matcher = pattern.matcher(email);
+    return matcher.matches();
+  }
+
+  public static Document getCurrentTask() {
+    return currentTask;
+  }
+
+  public static void setCurrentTask(Document currentTask) {
+    DatabaseConnection.currentTask = currentTask;
+  }
+
+  public static ObjectId getUserId() {
+    return userId;
+  }
+
+  public static void setUserId(ObjectId userId) {
+    DatabaseConnection.userId = userId;
   }
 }
 
