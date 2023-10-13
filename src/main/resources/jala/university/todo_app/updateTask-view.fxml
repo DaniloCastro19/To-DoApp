@@ -8,17 +8,32 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="335.0" style="-fx-background-color: #000000; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="jala.university.todo_app.controllers.UpdateTaskController">
-   <TextField fx:id="updateTaskTitle" alignment="CENTER" focusTraversable="false" layoutX="32.0" layoutY="25.0" prefHeight="30.0" prefWidth="270.0" promptText="Ingrese el título de la tarea">
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="335.0" style="-fx-background-color: #003049; -fx-background-radius: 5;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.UpdateTaskController">
+   <TextField fx:id="taskTitle" alignment="CENTER" focusTraversable="false" layoutX="32.0" layoutY="25.0" prefHeight="30.0" prefWidth="270.0" promptText="Ingrese el título de la tarea">
       <font>
          <Font name="Berlin Sans FB" size="17.0" />
       </font>
    </TextField>
    <TextArea fx:id="taskDescription" focusTraversable="false" layoutX="32.0" layoutY="75.0" prefHeight="103.0" prefWidth="270.0" promptText="Ingrese la descripción de la tarea" />
-   <Button fx:id="delete" layoutX="183.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#createTask" text="Eliminar" />
-   <Label fx:id="date" layoutX="32.0" layoutY="200.0" prefHeight="16.0" prefWidth="251.0" text="Fecha de vencimiento" textFill="#faf7f7" />
-   <Label fx:id="priority" layoutX="32.0" layoutY="243.0" prefHeight="16.0" prefWidth="205.0" text="Prioridad" textFill="#fafafa" />
-   <Button fx:id="update" layoutX="57.0" layoutY="337.0" mnemonicParsing="false" text="Actualizar" />
-   <CheckBox fx:id="completeTask" layoutX="32.0" layoutY="269.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="110.0" text="Completada" textFill="WHITE" />
+   <Button fx:id="delete" layoutX="184.0" layoutY="337.0" mnemonicParsing="false" onMouseClicked="#createTask" text="Eliminar" />
+   <Label fx:id="dateLabel" layoutX="32.0" layoutY="208.0" prefHeight="19.0" prefWidth="126.0" text="Fecha de creación:" textFill="#faf7f7">
+      <font>
+         <Font name="Berlin Sans FB" size="16.0" />
+      </font></Label>
+   <Label fx:id="priority" layoutX="35.0" layoutY="248.0" prefHeight="19.0" prefWidth="75.0" text="Prioridad:" textFill="#fafafa">
+      <font>
+         <Font name="Berlin Sans FB" size="16.0" />
+      </font></Label>
+   <Button fx:id="update" layoutX="87.0" layoutY="337.0" mnemonicParsing="false" text="Actualizar" />
+   <CheckBox fx:id="completeTask" layoutX="121.0" layoutY="286.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="92.0" text="Completada" textFill="WHITE" />
+   <Label fx:id="taskCreationDateLabel" layoutX="169.0" layoutY="209.0" textFill="WHITE">
+      <font>
+         <Font name="Berlin Sans FB" size="16.0" />
+      </font>
+   </Label>
+   <Label fx:id="taskPriorityLabel" layoutX="111.0" layoutY="249.0" textFill="WHITE">
+      <font>
+         <Font name="Berlin Sans FB" size="15.0" />
+      </font>
+   </Label>
 </AnchorPane>

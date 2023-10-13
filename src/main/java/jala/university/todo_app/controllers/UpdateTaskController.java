@@ -2,6 +2,7 @@ package jala.university.todo_app.controllers;
 
 import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
@@ -10,7 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-public class UpdateTaskController {
+public class UpdateTaskController implements Initializable {
 
   @FXML
   private AnchorPane anchorPane;
@@ -34,7 +35,7 @@ public class UpdateTaskController {
   private TextArea updateTask;
 
   @FXML
-  private TextField updateTaskTitle;
+  private TextField taskTitle;
 
   @FXML
   void updateTask(MouseEvent event) {
