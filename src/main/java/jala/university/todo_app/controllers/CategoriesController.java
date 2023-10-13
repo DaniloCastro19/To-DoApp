@@ -1,28 +1,25 @@
 package jala.university.todo_app.controllers;
+
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class AllTaskController {
+public class CategoriesController implements Initializable {
+
 
     private MongoClient mongoClient;
     private MongoDatabase database;
@@ -32,33 +29,26 @@ public class AllTaskController {
     private MongoCollection<Document> collectionTareas;
 
 
-
-    private Parent root;
-
-    private Stage stage;
-
-    private Scene scene;
-
-
-
-    @FXML
-    private AnchorPane topAnchorPane;
-
     @FXML
     private BorderPane AllTaskBorderPane;
 
     @FXML
-    private Label allTaskTitleLabel;
+    private TitledPane categorie;
 
     @FXML
-    private AnchorPane filterByAnchorPane;
+    private Accordion categoriesContainer;
 
     @FXML
-    private ImageView fliterByIcon;
-
+    private Label categoriesTitleLabel;
 
     @FXML
-    private ImageView priorityImg;
+    private ImageView priority;
+
+    @FXML
+    private ImageView priority1;
+
+    @FXML
+    private ImageView priority2;
 
     @FXML
     private ScrollPane scrollPane;
@@ -67,80 +57,72 @@ public class AllTaskController {
     private TextField searchField;
 
     @FXML
-    private ImageView moreInfoImg;
-
-
-    @FXML
     private ImageView searchIcon;
 
     @FXML
     private AnchorPane task;
-    @FXML
-    private TextField taskCategory;
 
     @FXML
-    private VBox taskContainer;
+    private AnchorPane task1;
+
+    @FXML
+    private AnchorPane task2;
+
+
+    @FXML
+    private VBox taskContainer1;
 
     @FXML
     private TextField taskName;
 
     @FXML
-    private CheckBox markAsDone;
-    public static Document tareaActual;
+    private TextField taskName1;
 
     @FXML
-    public void searchTask(MouseEvent mouseEvent) {
+    private TextField taskName2;
+
+    @FXML
+    private VBox vBoxContainer;
+
+
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         connectToDatabase();
         ObjectId userId = LoginController.getUserId();
         FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
 
-        task.setManaged(false);
+        //task.setManaged(false);
 
-        for (Document tarea : tareasDelUsuario) {
+        for (Document tarea: tareasDelUsuario){
             cantidadTareas++;
         }
-        String [] taskName = new String[cantidadTareas];
 
-        for (Document tarea : tareasDelUsuario) {
-            taskName[iteration] = tarea.getString("nombre");
+        for (Document tarea: tareasDelUsuario){
+            createCategoyComponent(tarea, cantidadTareas, iteration);
             iteration++;
         }
-        if (searchField.getText().isEmpty() || searchField.getText() == null) {
-            noResultsLabel();
-        } else {
-            for (int iterator = 0; iterator < taskName.length; iterator++){
-                if(!(searchField.getText().equals(taskName[iterator]))){
-                    noResultsLabel();
-                }else {
 
-                }
-            }
-        }
 
     }
 
-    @FXML
-    public void initialize(){
-        connectToDatabase();
-        ObjectId userId = LoginController.getUserId();
-        FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
-        int cantidadTareas = 0;
-        int iteration = 0;
+    void createCategoyComponent(Document tarea, int cantidadTareas, int iteration){
 
-        task.setManaged(false);
+        //Tarea
+        VBox taskContainer = new VBox();
+        //TODO: CREACIÓN DEL CONTENEDOR DE LAS TAREAS.
+        //AnchorPane task = taskComponentCreator(tarea, cantidadTareas, iteration);
 
-        for (Document tarea: tareasDelUsuario){
-            cantidadTareas++;
-        }
+        //Contenedor de categoría.
 
-        for (Document tarea: tareasDelUsuario){
-            taskComponentCreator(tarea, cantidadTareas, iteration);
-            iteration++;
-        }
+        Accordion newCategoryContainer = new Accordion();
+        newCategoryContainer.setPrefWidth(categoriesContainer.getPrefWidth());
+        TitledPane tituloCategoria = new TitledPane(tarea.getString("categoria"), taskContainer);
+        tituloCategoria.setAnimated(true);
+        newCategoryContainer.getPanes().add(tituloCategoria);
 
-
+        vBoxContainer.getChildren().add(newCategoryContainer);
     }
 
     void connectToDatabase() {
@@ -149,49 +131,17 @@ public class AllTaskController {
         collectionUsuarios = database.getCollection("Usuarios");
         collectionTareas = database.getCollection("Tareas");
     }
-    @FXML
-    public void doneTask(MouseEvent mouseEvent) {
-    }
 
-    @FXML
-    public void moreDetailsRedirection(MouseEvent event) throws IOException {
-        loadPage("/jala/university/todo_app/updateTask-view.fxml");
-    }
-
-    private void loadPage(String page){
-        Parent root = null;
-        //BorderPane dashboard = getDashboard();
-        try{
-            root = FXMLLoader.load(getClass().getResource(page));
-            AllTaskBorderPane.setCenter(root);
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        System.out.println(page);
-    }
-
-    void noResultsLabel(){
-        taskContainer.getChildren().removeIf(node -> node instanceof AnchorPane);
-        Label label = new Label("No hay resultados.");
-        VBox labelContainer = new VBox(label);
-        labelContainer.setAlignment(Pos.CENTER);
-        label.setTextFill(Color.WHITE);
-        Font font = new Font("Berlin Sans FB", 15);
-        label.setFont(font);
-        taskContainer.getChildren().add(labelContainer);
-    }
-
-    public void taskComponentCreator(Document tarea, int cantidadTareas, int iteration){
+    public void taskComponentCreator(Document tarea, int cantidadTareas, int iteration) {
 
         //Componente de Tareas
         AnchorPane userTask = new AnchorPane();
-        VBox.setMargin(userTask, new javafx.geometry.Insets(0,0,20,0));
+        VBox.setMargin(userTask, new javafx.geometry.Insets(0, 0, 20, 0));
         userTask.setPrefWidth(task.getPrefWidth());
         userTask.setPrefHeight(task.getPrefHeight());
         userTask.setStyle(task.getStyle());
 
+        /*
         //Componente CheckBox
         CheckBox checkTask = new CheckBox();
         checkTask.setLayoutX(markAsDone.getLayoutX());
@@ -281,6 +231,10 @@ public class AllTaskController {
             topAnchorPane.setVisible(false);
         });
         taskContainer.getChildren().add(userTask);
-    }
 
+        return userTask;
+    }
+*/
+    }
 }
+
