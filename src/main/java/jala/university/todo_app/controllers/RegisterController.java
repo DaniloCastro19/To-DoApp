@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -59,27 +60,36 @@ public class RegisterController {
     @FXML
     void onRegisterButtonClick() {
         try {
-            eraseAlerts();
             String userName = userNameField.getText();
             String userEmail = userEmailField.getText();
             String password = userPasswordField.getText();
             String repeatPassword = repeatPasswordField.getText();
-            fieldValidation(userName, userEmail, password, repeatPassword);
-            boolean registrationSuccess = DatabaseConnection.createUser(userName, userEmail, password);
+            boolean areValidInputs = fieldValidation(userName, userEmail, password, repeatPassword);
+            if (areValidInputs){
+                boolean registrationSuccess = DatabaseConnection.createUser(userName, userEmail, password);
+                if (registrationSuccess) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Estado de registro");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Usuario registrado con éxito.");
+                    alert.showAndWait();
+                    loadLogin();
 
-            if (registrationSuccess) {
+                } else if (!registrationSuccess){
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error de registro");
+                    alert.setHeaderText(null);
+                    alert.setContentText("El registro de usuario ha fallado. Por favor, siga las instrucciones e inténtelo de nuevo.");
+                    alert.showAndWait();
+                }
+            }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Estado de registro");
                 alert.setHeaderText(null);
-                alert.setContentText("Usuario registrado con éxito.");
-                alert.showAndWait();
-            } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error de registro");
-                alert.setHeaderText(null);
-                alert.setContentText("El registro de usuario ha fallado. Por favor, inténtalo de nuevo.");
+                alert.setContentText("El registro de usuario ha fallado. Por favor siga las instrucciones.");
                 alert.showAndWait();
             }
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -96,20 +106,28 @@ public class RegisterController {
     }
     private boolean fieldValidation(String userName, String userEmail, String password, String repeatPassword) {
         boolean isValid = true;
-        if (userName.isEmpty()) {
+        if (userName.isEmpty() && userEmail.isEmpty() && password.isEmpty() && repeatPassword.isEmpty()){
+            nameFieldAlertLabel.setText("Debe introducir su nombre.");
+            emailFieldAlertLabel.setText("Debe introducir su correo electrónico.");
+            passwordFieldAlertLabel.setText("Campo de contraseña vacío.");
+            repeatPasswordAlertLabel.setText("Debe repetir su contraseña.");
+            isValid = false;
+        }else if (userName.isEmpty()) {
             nameFieldAlertLabel.setText("Campo vacío");
             isValid = false;
-        }
-        if (!validateEmail(userEmail)) {
-            emailFieldAlertLabel.setText("Correo electrónico inválido.");
+        } else if(userEmail.isEmpty()){
+            emailFieldAlertLabel.setText("Campo de email vacío.");
             isValid = false;
-        }else if (registerUser != null) {
-            emailFieldAlertLabel.setText("Correo electrónico ya registrado.");
-            isValid = false;
-        }
-        if (userPasswordField.getText().isEmpty()) {
+        } else if (password.isEmpty()) {
             passwordFieldAlertLabel.setText("Campo de contraseña vacío.");
+        } else if (repeatPassword.isEmpty()) {
+            repeatPasswordAlertLabel.setText("Campo de contraseña vacío.");
             isValid = false;
+        }
+
+        if (!validateEmail(userEmail)){
+        emailFieldAlertLabel.setText("Correo electrónico inválido.");
+        isValid = false;
         }
         if (!password.equals(repeatPassword)) {
             repeatPasswordAlertLabel.setText("Las contraseñas no coinciden.");
@@ -124,10 +142,17 @@ public class RegisterController {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
-    void eraseAlerts() {
-        nameFieldAlertLabel.setText("");
+    private void loadLogin(){
+        Parent root = null;
+        try{
+            Stage stage = (Stage) registerUser.getScene().getWindow();
+            stage.close();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource("/jala/university/todo_app/login-view.fxml"))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 
 }

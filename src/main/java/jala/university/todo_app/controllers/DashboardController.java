@@ -7,6 +7,7 @@ import com.mongodb.client.model.Filters;
 import jala.university.todo_app.DatabaseConnection;
 import jala.university.todo_app.Login;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -71,7 +72,6 @@ public class DashboardController {
         loadPage("/jala/university/todo_app/completedTask-view.fxml");
     }
 
-
     @FXML
     void createNewTask(MouseEvent mouseEvent) throws IOException {
 
@@ -123,8 +123,12 @@ public class DashboardController {
 
     }
     @FXML
-    public void changeUserImg(MouseEvent mouseEvent) {
+    public void logout(ActionEvent actionEvent) {
         loadLogin("/jala/university/todo_app/login-view.fxml");
+
+    }
+    @FXML
+    public void changeUserImg(MouseEvent mouseEvent) {
     }
 
     void connectToDatabase() {
@@ -133,10 +137,5 @@ public class DashboardController {
         collectionUsuarios = database.getCollection("Usuarios");
         collectionTareas = database.getCollection("Tareas");
     }
-
-    public BorderPane getDashboard(){
-        return dashboard;
-    }
-
 
 }
