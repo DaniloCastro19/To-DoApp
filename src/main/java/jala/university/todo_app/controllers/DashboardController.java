@@ -5,9 +5,12 @@ import static com.mongodb.client.model.Filters.eq;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
 import jala.university.todo_app.DatabaseConnection;
+import jala.university.todo_app.Login;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.GaussianBlur;
@@ -21,6 +24,7 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import com.mongodb.client.model.Filters.*;
@@ -110,8 +114,25 @@ public class DashboardController {
         System.out.println(page);
 
     }
+
+    private void loadLogin(String page){
+        Parent root = null;
+        try{
+            Stage stage = (Stage) dashboard.getScene().getWindow();
+            stage.close();
+            stage.setTitle("Login");
+            stage.setScene(new Scene(FXMLLoader.load(getClass().getResource(page))));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        System.out.println(page);
+
+    }
     @FXML
     public void changeUserImg(MouseEvent mouseEvent) {
+        loadLogin("/jala/university/todo_app/login-view.fxml");
     }
 
     void connectToDatabase() {

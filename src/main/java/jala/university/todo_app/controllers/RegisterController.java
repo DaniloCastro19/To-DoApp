@@ -90,6 +90,7 @@ public class RegisterController {
         root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/login-view.fxml"));
         scene = new Scene(root);
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.setTitle("Login");
         stage.setScene(scene);
         stage.show();
     }
