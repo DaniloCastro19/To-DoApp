@@ -67,7 +67,7 @@ public class LoginController {
         scene = new Scene(root);
 
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+        stage.setTitle("Register");
         stage.setScene(scene);
 
         stage.show();
@@ -81,7 +81,7 @@ public class LoginController {
                 scene = new Scene(root);
 
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
+                stage.setTitle("Dashboard");
                 stage.setScene(scene);
 
                 stage.show();
