@@ -61,19 +61,11 @@ public class DashboardController {
     private MongoCollection<Document> collectionUsuarios;
     private MongoCollection<Document> collectionTareas ;
 
-
-
     @FXML
     void allTask(MouseEvent event) throws IOException {
         loadPage("/jala/university/todo_app/allTask-view.fxml");
 
     }
-
-    @FXML
-    void categories(MouseEvent event) {
-        loadPage("/jala/university/todo_app/categories.fxml");
-    }
-
     @FXML
     public void completedTask(MouseEvent mouseEvent) {
         loadPage("/jala/university/todo_app/completedTask-view.fxml");

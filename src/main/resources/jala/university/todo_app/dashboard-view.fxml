@@ -13,11 +13,10 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;"
-            xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.DashboardController">
+<BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="jala.university.todo_app.controllers.DashboardController">
    <left>
       <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="131.0" style="-fx-background-color: #003049;" BorderPane.alignment="CENTER">
-         <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutY="219.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas ">
+         <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutX="2.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas ">
             <font>
                <Font name="Berlin Sans FB" size="15.0" />
             </font>
@@ -32,15 +31,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Button fx:id="categoriesButton" contentDisplay="CENTER" layoutY="284.0" mnemonicParsing="false" onMouseClicked="#categories" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Categorías">
-            <font>
-               <Font name="Berlin Sans FB" size="15.0" />
-            </font>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </Button>
-         <Button fx:id="completedTaskButton" contentDisplay="CENTER" layoutX="1.0" layoutY="351.0" mnemonicParsing="false" onMouseClicked="#completedTask" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #7F97A4;" text="Completadas">
+         <Button fx:id="completedTaskButton" contentDisplay="CENTER" layoutX="2.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#completedTask" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #7F97A4;" text="Completadas">
             <font>
                <Font name="Berlin Sans FB" size="15.0" />
             </font>

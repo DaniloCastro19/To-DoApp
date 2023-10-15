@@ -47,7 +47,8 @@ public class UpdateTaskController implements Initializable {
   @FXML
   void updateTask(MouseEvent event) {
     String taskId = DatabaseConnection.getCurrentTask().getObjectId("_id").toString();
-    DatabaseConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText());
+    boolean isTaskCompleted = completeTask.isSelected();
+    DatabaseConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText(), isTaskCompleted);
 
   }
 
