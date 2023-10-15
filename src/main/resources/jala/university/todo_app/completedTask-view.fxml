@@ -12,7 +12,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="AllTaskBorderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="560.0" prefWidth="780.0" style="-fx-background-color: #161A21;"
+            xmlns:fx="http://javafx.com/fxml" fx:controller="jala.university.todo_app.controllers.CompletedTaskController">
    <top>
       <AnchorPane prefHeight="59.0" prefWidth="900.0" BorderPane.alignment="CENTER">
          <Label fx:id="categoriesTitleLabel" layoutX="90.0" layoutY="2.0" prefHeight="54.0" prefWidth="338.0" text="Tareas completadas" textFill="WHITE">
@@ -37,37 +38,39 @@
    </top>
    <center>
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #161A21;" BorderPane.alignment="CENTER">
-         <VBox fx:id="taskContainer" prefHeight="541.0" prefWidth="774.0" style="-fx-background-color: #161A21;">
-            <AnchorPane fx:id="task" prefHeight="59.0" prefWidth="650.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 0 10 0 10;">
-               <VBox.margin>
-                  <Insets bottom="20.0" top="20.0" />
-               </VBox.margin>
-               <TextField fx:id="categoryName" alignment="CENTER" editable="false" layoutX="282.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: trasparent; -fx-border-width: 1; -fx-border-color: #4A5051; -fx-border-radius: 0 10 0 10;" text="Categoría">
-                  <font>
-                     <Font name="Berlin Sans FB" size="13.0" />
-                  </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </TextField>
-               <TextField fx:id="taskName" alignment="CENTER" editable="false" layoutX="114.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 0 10 0 10;" text="Tarea">
-                  <font>
-                     <Font name="Berlin Sans FB" size="13.0" />
-                  </font>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </TextField>
-               <ImageView fx:id="completedTaskIcon" fitHeight="44.0" fitWidth="74.0" layoutX="22.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="7.200000000000003" AnchorPane.leftAnchor="22.0" AnchorPane.rightAnchor="593.2" AnchorPane.topAnchor="8.0">
-                  <image>
-                     <Image url="@../../../img/icons8-tarea-completada-48.png" />
-                  </image>
-                  <cursor>
-                     <Cursor fx:constant="HAND" />
-                  </cursor>
-               </ImageView>
-            </AnchorPane>
-         </VBox>
+         <content>
+            <VBox fx:id="taskContainer" prefHeight="498.0" prefWidth="780.0" style="-fx-background-color: #161A21;">
+               <AnchorPane fx:id="task" prefHeight="59.0" prefWidth="650.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 0 10 0 10;" visible="false">
+                  <VBox.margin>
+                     <Insets top="10.0" />
+                  </VBox.margin>
+                  <TextField fx:id="taskCategory" alignment="CENTER" editable="false" layoutX="333.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: trasparent; -fx-border-width: 1; -fx-border-color: #4A5051; -fx-border-radius: 0 10 0 10;" text="Sin categoría">
+                     <font>
+                        <Font name="Berlin Sans FB" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </TextField>
+                  <TextField fx:id="taskName" alignment="CENTER" editable="false" layoutX="152.0" layoutY="11.0" prefHeight="37.0" prefWidth="134.0" style="-fx-background-color: FFFFFF; -fx-background-radius: 0 10 0 10;" text="Tarea">
+                     <font>
+                        <Font name="Berlin Sans FB" size="13.0" />
+                     </font>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </TextField>
+                  <ImageView fx:id="completedTaskIcon" fitHeight="49.0" fitWidth="48.0" layoutX="39.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../img/icons8-tarea-completada-48.png" />
+                     </image>
+                  </ImageView>
+                  <opaqueInsets>
+                     <Insets />
+                  </opaqueInsets>
+               </AnchorPane>
+            </VBox>
+         </content>
       </ScrollPane>
    </center>
 </BorderPane>

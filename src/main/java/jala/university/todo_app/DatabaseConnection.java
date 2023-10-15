@@ -50,11 +50,12 @@ public class DatabaseConnection {
     collectionTareas.insertOne(tarea);
   }
 
-  public static void updateTask(String taskId, String newTaskTitle, String newTaskDescription) {
+  public static void updateTask(String taskId, String newTaskTitle, String newTaskDescription, boolean isCompleted) {
     Document query = new Document("_id", new ObjectId(taskId));
     Bson updates = Updates.combine(
         Updates.set("nombre", newTaskTitle),
-        Updates.set("descripcion", newTaskDescription)
+        Updates.set("descripcion", newTaskDescription),
+        Updates.set("completada", isCompleted)
     );
     UpdateOptions options = new UpdateOptions().upsert(true);
     collectionTareas.updateOne(query, updates, options);

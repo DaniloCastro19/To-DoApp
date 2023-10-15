@@ -59,41 +59,42 @@
       <ScrollPane fx:id="scrollPane" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #161A21;" BorderPane.alignment="CENTER">
          <content>
             <VBox fx:id="taskContainer" onMouseClicked="#doneTask" prefHeight="498.0" prefWidth="680.0" style="-fx-background-color: #161A21;">
-               <HBox prefHeight="16.0" prefWidth="666.0" style="-fx-background-color: #4E5C75; -fx-background-radius: 3;">
-                  <children>
-                     <Label text="Nombre de la tarea" textFill="WHITE">
-                        <font>
-                           <Font name="Berlin Sans FB" size="15.0" />
-                        </font>
-                        <HBox.margin>
-                           <Insets left="125.0" />
-                        </HBox.margin>
-                     </Label>
-                     <Label layoutX="130.0" layoutY="10.0" text="Categoría" textFill="WHITE">
-                        <font>
-                           <Font name="Berlin Sans FB" size="15.0" />
-                        </font>
-                        <HBox.margin>
-                           <Insets left="60.0" />
-                        </HBox.margin>
-                     </Label>
-                     <Label layoutX="339.0" layoutY="10.0" prefHeight="18.0" prefWidth="63.0" text="Prioridad" textFill="WHITE">
-                        <font>
-                           <Font name="Berlin Sans FB" size="15.0" />
-                        </font>
-                        <HBox.margin>
-                           <Insets left="65.0" />
-                        </HBox.margin>
-                     </Label>
-                     <Label layoutX="446.0" layoutY="10.0" prefHeight="18.0" prefWidth="135.0" text="Detalles de la tarea" textFill="WHITE">
-                        <font>
-                           <Font name="Berlin Sans FB" size="15.0" />
-                        </font>
-                        <HBox.margin>
-                           <Insets left="15.0" />
-                        </HBox.margin>
-                     </Label>
-                  </children>
+               <HBox prefHeight="16.0" prefWidth="666.0"
+                     style="-fx-background-color: #4E5C75; -fx-background-radius: 3;">
+                  <Label text="Nombre de la tarea" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets left="125.0"/>
+                     </HBox.margin>
+                  </Label>
+                  <Label layoutX="130.0" layoutY="10.0" text="Categoría" textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets left="60.0"/>
+                     </HBox.margin>
+                  </Label>
+                  <Label layoutX="339.0" layoutY="10.0" prefHeight="18.0" prefWidth="63.0" text="Prioridad"
+                         textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets left="65.0"/>
+                     </HBox.margin>
+                  </Label>
+                  <Label layoutX="446.0" layoutY="10.0" prefHeight="18.0" prefWidth="135.0" text="Detalles de la tarea"
+                         textFill="WHITE">
+                     <font>
+                        <Font name="Berlin Sans FB" size="15.0"/>
+                     </font>
+                     <HBox.margin>
+                        <Insets left="15.0"/>
+                     </HBox.margin>
+                  </Label>
                </HBox>
                <AnchorPane fx:id="task" prefHeight="59.0" prefWidth="650.0" style="-fx-background-color: #D9D9D9; -fx-background-radius: 0 10 0 10;" visible="false">
                   <VBox.margin>
