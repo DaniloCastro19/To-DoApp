@@ -18,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -75,6 +76,11 @@ public class LoginController {
 
     @FXML
     void loginEvent(ActionEvent event) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Estado de nicio de sesión.");
+        alert.setHeaderText(null);
+        alert.setContentText("Iniciando sesión... Por favor espere.");
+        alert.show();
         try {
             if (DatabaseConnection.login(emailField.getText(), passwordField.getText())) {
                 root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));
