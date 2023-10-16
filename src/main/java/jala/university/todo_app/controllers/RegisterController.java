@@ -1,15 +1,12 @@
 package jala.university.todo_app.controllers;
 
-import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
-import com.mongodb.client.*;
 import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,9 +14,6 @@ import javafx.fxml.FXML;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 public class RegisterController {
-
-    public static MongoClient mongoClient;
-    public static MongoDatabase database;
     private Parent root;
     private Scene scene;
     private Stage stage;
@@ -56,6 +50,7 @@ public class RegisterController {
     private Label passwordFieldAlertLabel;
     @FXML
     private Label repeatPasswordAlertLabel;
+    private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
 
     @FXML
     void onRegisterButtonClick() {
@@ -66,7 +61,7 @@ public class RegisterController {
             String repeatPassword = repeatPasswordField.getText();
             boolean areValidInputs = fieldValidation(userName, userEmail, password, repeatPassword);
             if (areValidInputs){
-                boolean registrationSuccess = DatabaseConnection.createUser(userName, userEmail, password);
+                boolean registrationSuccess = dbConnection.createUser(userName, userEmail, password);
                 if (registrationSuccess) {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Estado de registro");

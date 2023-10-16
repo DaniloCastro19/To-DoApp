@@ -1,6 +1,5 @@
 package jala.university.todo_app.controllers;
 
-import jala.university.todo_app.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -43,32 +42,30 @@ public class UpdateTaskController implements Initializable {
 
   @FXML
   private TextField taskTitle;
+  private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
 
   @FXML
   void updateTask(MouseEvent event) {
-    String taskId = DatabaseConnection.getCurrentTask().getObjectId("_id").toString();
+    String taskId = dbConnection.getCurrentTask().getObjectId("_id").toString();
     boolean isTaskCompleted = completeTask.isSelected();
-    DatabaseConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText(), isTaskCompleted);
+    dbConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText(), isTaskCompleted);
 
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    taskTitle.setText(DatabaseConnection.getCurrentTask().getString("nombre"));
+    taskTitle.setText(dbConnection.getCurrentTask().getString("nombre"));
     taskTitle.setEditable(true);
-    taskDescription.setText(DatabaseConnection.getCurrentTask().getString("descripcion"));
+    taskDescription.setText(dbConnection.getCurrentTask().getString("descripcion"));
     taskDescription.setEditable(true);
-    taskCreationDateLabel.setText(String.valueOf(DatabaseConnection.getCurrentTask().getDate("FechaCreacion")));
-    taskPriorityLabel.setText(DatabaseConnection.getCurrentTask().getString("prioridad"));
+    taskCreationDateLabel.setText(String.valueOf(dbConnection.getCurrentTask().getDate("FechaCreacion")));
+    taskPriorityLabel.setText(dbConnection.getCurrentTask().getString("prioridad"));
   }
 
   private void loadPage(String page) {
     Parent root = null;
-    //BorderPane dashboard = getDashboard();
     try {
       root = FXMLLoader.load(getClass().getResource(page));
-
-      //anchorPane.setClip(root);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

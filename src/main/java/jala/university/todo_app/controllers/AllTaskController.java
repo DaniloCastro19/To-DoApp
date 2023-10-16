@@ -1,7 +1,6 @@
 package jala.university.todo_app.controllers;
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -25,13 +24,6 @@ import org.bson.types.ObjectId;
 import java.io.IOException;
 
 public class AllTaskController {
-
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-
-    private MongoCollection<Document> collectionUsuarios;
-
-    private MongoCollection<Document> collectionTareas;
 
 
 
@@ -88,11 +80,12 @@ public class AllTaskController {
 
     @FXML
     private CheckBox markAsDone;
+    private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
     @FXML
     public void searchTask(MouseEvent mouseEvent) {
-        connectToDatabase();
-        ObjectId userId = DatabaseConnection.getUserId();
-        FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
+        ObjectId userId = dbConnection.getUserId();
+        FindIterable<Document> tareasDelUsuario = dbConnection
+            .getCollectionTareas().find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
 
@@ -123,9 +116,9 @@ public class AllTaskController {
 
     @FXML
     public void initialize(){
-        connectToDatabase();
-        ObjectId userId = DatabaseConnection.getUserId();
-        FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
+        ObjectId userId = dbConnection.getUserId();
+        FindIterable<Document> tareasDelUsuario = dbConnection
+            .getCollectionTareas().find(Filters.eq("usuario", userId));
         int cantidadTareas = 0;
         int iteration = 0;
 
@@ -142,13 +135,7 @@ public class AllTaskController {
         }
 
     }
-
-    void connectToDatabase() {
-        mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
-        database = mongoClient.getDatabase("ToDoApp");
-        collectionUsuarios = database.getCollection("Usuarios");
-        collectionTareas = database.getCollection("Tareas");
-    }
+    
     @FXML
     public void doneTask(MouseEvent mouseEvent) {
     }
@@ -168,8 +155,6 @@ public class AllTaskController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        System.out.println(page);
     }
 
     void noResultsLabel(){
@@ -184,7 +169,7 @@ public class AllTaskController {
     }
 
     public void taskComponentCreator(Document tarea, int cantidadTareas, int iteration){
-        DatabaseConnection.setCurrentTask(tarea);
+        dbConnection.setCurrentTask(tarea);
         //Componente de Tareas
         AnchorPane userTask = new AnchorPane();
         VBox.setMargin(userTask, new Insets(0,0,20,0));
@@ -282,7 +267,7 @@ public class AllTaskController {
         checkTask.setText("Mark as done");
         checkTask.setOnMouseClicked(mouseEvent -> {
             String idTarea = String.valueOf(tarea.get("_id"));
-            DatabaseConnection.updateTask(idTarea, tarea.getString("nombre"), tarea.getString("descripcion"),true);
+            dbConnection.updateTask(idTarea, tarea.getString("nombre"), tarea.getString("descripcion"),true);
             userTask.setVisible(false);
             userTask.setManaged(false);
 
