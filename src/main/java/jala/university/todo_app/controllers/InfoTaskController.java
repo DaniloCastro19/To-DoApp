@@ -34,6 +34,11 @@ public class InfoTaskController implements Initializable {
 
   @FXML
   private Button update;
+  @FXML
+  private Label taskCreationDateLabel;
+
+  @FXML
+  private Label taskPriorityLabel;
 
   @FXML
   private TextArea taskDescription;
@@ -59,6 +64,8 @@ public class InfoTaskController implements Initializable {
     taskTitle.setEditable(false);
     taskDescription.setText(dbConnection.getCurrentTask().getString("descripcion"));
     taskDescription.setEditable(false);
+    taskCreationDateLabel.setText(String.valueOf(dbConnection.getCurrentTask().getDate("FechaCreacion")));
+    taskPriorityLabel.setText(dbConnection.getCurrentTask().getString("prioridad"));
   }
 
   private void loadPage(String page){

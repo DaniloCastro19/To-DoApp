@@ -67,7 +67,7 @@ public class RegisterController {
                     alert.setTitle("Estado de registro");
                     alert.setHeaderText(null);
                     alert.setContentText("Usuario registrado con éxito.");
-                    alert.show();
+                    alert.showAndWait();
                     loadLogin();
                 } else if (!registrationSuccess){
                     Alert alert = new Alert(Alert.AlertType.ERROR);

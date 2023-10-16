@@ -252,7 +252,7 @@ public class AllTaskController {
 
         iconoDetalles[iteration].setOnMouseClicked(event -> {
 
-            loadPage("/jala/university/todo_app/updateTask-view.fxml");
+            loadPage("/jala/university/todo_app/infoTask-view.fxml");
             filterByAnchorPane.setVisible(false);
             topAnchorPane.setVisible(false);
         });

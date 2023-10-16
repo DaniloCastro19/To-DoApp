@@ -44,22 +44,32 @@ public class NewTaskController implements Initializable {
     @FXML
     void createTask(MouseEvent event) {
         fechaHoraActual =LocalDate.now();
-        ObjectId userId = DatabaseConnection.getUserId();
+        ObjectId userId = dbConnection.getUserId();
 
         if (newTaskTitleTextField.getText().isEmpty()) {
             titleAlertLabel.setText("La tarea debe tener un título.");
-            System.out.println("title");
         } else if (priorityChoiceBox.getValue() == null) {
             priorityAlertLabel.setText("Debe establecer el nivel de prioridad para la tarea.");
-            System.out.println("priority");
         }else {
-            DatabaseConnection.createTask(newTaskTitleTextField.getText(),
+            dbConnection.createTask(newTaskTitleTextField.getText(),
                     newTaskDescriptionArea.getText(),
                     categoryField.getText(),
                     priorityChoiceBox.getValue(),
                     userId);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Creación de tarea");
+            alert.setHeaderText(null);
+            alert.setContentText("Tarea creada con éxito.");
+            alert.showAndWait();
+            clearFields();
         }
 
+    }
+
+    void clearFields(){
+        newTaskTitleTextField.clear();
+        newTaskDescriptionArea.clear();
+        categoryField.clear();
     }
 
     @Override
