@@ -23,7 +23,10 @@ public class NewTaskController implements Initializable {
 
     LocalDate fechaHoraActual;
 
-
+    @FXML
+    private Label titleAlertLabel;
+    @FXML
+    private Label priorityAlertLabel;
     @FXML
     private AnchorPane anchorPane;
 
@@ -53,11 +56,21 @@ public class NewTaskController implements Initializable {
     void createTask(MouseEvent event) {
         fechaHoraActual =LocalDate.now();
         ObjectId userId = DatabaseConnection.getUserId();
-        DatabaseConnection.createTask(newTaskTitleTextField.getText(),
-            newTaskDescriptionArea.getText(),
-            categoryField.getText(),
-            priorityChoiceBox.getValue(),
-            userId);
+
+        if (newTaskTitleTextField.getText().isEmpty()) {
+            titleAlertLabel.setText("La tarea debe tener un título.");
+            System.out.println("title");
+        } else if (priorityChoiceBox.getValue() == null) {
+            priorityAlertLabel.setText("Debe establecer el nivel de prioridad para la tarea.");
+            System.out.println("priority");
+        }else {
+            DatabaseConnection.createTask(newTaskTitleTextField.getText(),
+                    newTaskDescriptionArea.getText(),
+                    categoryField.getText(),
+                    priorityChoiceBox.getValue(),
+                    userId);
+        }
+
     }
 
     @Override

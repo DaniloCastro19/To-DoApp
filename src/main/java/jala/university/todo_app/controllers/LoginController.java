@@ -80,7 +80,7 @@ public class LoginController {
         alert.setTitle("Estado de nicio de sesión.");
         alert.setHeaderText(null);
         alert.setContentText("Iniciando sesión... Por favor espere.");
-        alert.show();
+        alert.showAndWait();
         try {
             if (DatabaseConnection.login(emailField.getText(), passwordField.getText())) {
                 root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));

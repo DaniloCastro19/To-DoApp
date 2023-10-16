@@ -101,12 +101,16 @@ public class CompletedTaskController implements Initializable {
 
 
         //Categoría de la tarea
+        String categoria = tarea.getString("categoria") ;
+        if (categoria.isEmpty()){
+            categoria = "Sin categoría";
+        }
         TextField userTaskCategory= new TextField();
         userTaskCategory.setStyle(taskCategory.getStyle());
         userTaskCategory.setPrefWidth(taskCategory.getPrefWidth());
         userTaskCategory.setPrefHeight(taskCategory.getPrefHeight());
         userTaskCategory.setEditable(false);
-        userTaskCategory.setText(tarea.getString("categoria"));
+        userTaskCategory.setText(categoria);
         userTaskCategory.setLayoutX(taskCategory.getLayoutX());
         userTaskCategory.setLayoutY(taskCategory.getLayoutY());
         userTaskCategory.setFont(taskCategory.getFont());

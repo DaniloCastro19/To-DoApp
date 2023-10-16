@@ -39,8 +39,11 @@ public class DatabaseConnection {
 
   public static void createTask(String taskTitle, String taskDescription, String category,
       String priority, ObjectId userId) {
-    LocalDateTime fechaHoraActual = LocalDateTime.now();
-    Document tarea = new Document("nombre", taskTitle)
+      LocalDateTime fechaHoraActual = LocalDateTime.now();
+      if (category.isEmpty()){
+        category = "Sin categoría.";
+      }
+      Document tarea = new Document("nombre", taskTitle)
         .append("descripcion", taskDescription)
         .append("categoria", category.toUpperCase())
         .append("prioridad", priority)

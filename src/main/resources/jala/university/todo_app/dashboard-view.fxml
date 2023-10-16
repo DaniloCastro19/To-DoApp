@@ -17,7 +17,7 @@
 <BorderPane fx:id="dashboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: #1E1E1E;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="jala.university.todo_app.controllers.DashboardController">
    <left>
       <Pane fx:id="sidebar" prefHeight="600.0" prefWidth="131.0" style="-fx-background-color: #003049;" BorderPane.alignment="CENTER">
-         <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutX="2.0" layoutY="231.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas ">
+         <Button fx:id="allTaskButton" contentDisplay="CENTER" layoutY="229.0" mnemonicParsing="false" onMouseClicked="#allTask" prefHeight="30.0" prefWidth="132.0" style="-fx-background-color: #7F97A4;" text="Tareas ">
             <font>
                <Font name="Berlin Sans FB" size="15.0" />
             </font>
@@ -32,7 +32,7 @@
                <Cursor fx:constant="HAND" />
             </cursor>
          </ImageView>
-         <Button fx:id="completedTaskButton" contentDisplay="CENTER" layoutX="2.0" layoutY="303.0" mnemonicParsing="false" onMouseClicked="#completedTask" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #7F97A4;" text="Completadas">
+         <Button fx:id="completedTaskButton" contentDisplay="CENTER" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#completedTask" prefHeight="30.0" prefWidth="131.0" style="-fx-background-color: #7F97A4;" text="Completadas">
             <font>
                <Font name="Berlin Sans FB" size="15.0" />
             </font>
