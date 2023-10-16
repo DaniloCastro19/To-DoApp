@@ -1,16 +1,9 @@
 package jala.university.todo_app.controllers;
 
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import jala.university.todo_app.DatabaseConnection;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,19 +18,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import org.bson.Document;
-import org.bson.types.ObjectId;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class LoginController {
 
     private Parent root;
     private Scene scene;
     private Stage stage;
-
-    public static MongoClient mongoClient;
-    public static MongoDatabase database;
-
     @FXML
     private TextField emailField;
 
@@ -61,16 +47,15 @@ public class LoginController {
 
     @FXML
     private TextField passwordField;
+    private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
 
     @FXML
     void registerRedirection(MouseEvent event) throws IOException {
         root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/register-view.fxml"));
         scene = new Scene(root);
-
         stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setTitle("Register");
         stage.setScene(scene);
-
         stage.show();
     }
 
@@ -82,14 +67,12 @@ public class LoginController {
         alert.setContentText("Iniciando sesión... Por favor espere.");
         alert.showAndWait();
         try {
-            if (DatabaseConnection.login(emailField.getText(), passwordField.getText())) {
+            if (dbConnection.login(emailField.getText(), passwordField.getText())) {
                 root = FXMLLoader.load(getClass().getResource("/jala/university/todo_app/dashboard-view.fxml"));
                 scene = new Scene(root);
-
                 stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
                 stage.setTitle("Dashboard");
                 stage.setScene(scene);
-
                 stage.show();
             }
         } catch (IOException e) {

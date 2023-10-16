@@ -1,9 +1,5 @@
 package jala.university.todo_app.controllers;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
-import jala.university.todo_app.DatabaseConnection;
 import java.time.LocalDate;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -11,11 +7,9 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
-import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 public class NewTaskController implements Initializable {
@@ -46,12 +40,7 @@ public class NewTaskController implements Initializable {
 
     @FXML
     private TextField newTaskTitleTextField;
-
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-    private MongoCollection<Document> collectionTareas;
-
-
+    private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
     @FXML
     void createTask(MouseEvent event) {
         fechaHoraActual =LocalDate.now();

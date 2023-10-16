@@ -1,4 +1,4 @@
-package jala.university.todo_app;
+package jala.university.todo_app.controllers;
 
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoClient;
@@ -11,24 +11,21 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class DatabaseConnection {
-  private static MongoClient mongoClient;
-  private static MongoDatabase database;
-  private static MongoCollection<Document> collectionTareas;
-  private static MongoCollection<Document>collectionUsuarios;
-  private static Document currentTask;
-  private static ObjectId userId = new ObjectId("6524a67c727101572516340f");
+  private MongoClient mongoClient;
+  private MongoDatabase database;
+  private MongoCollection<Document> collectionTareas;
+  private MongoCollection<Document>collectionUsuarios;
+  private Document currentTask;
+  private static DatabaseConnection instance = null;
+  private ObjectId userId = new ObjectId("6524a67c727101572516340f");
 
-   static {
+    private DatabaseConnection(){
      mongoClient = MongoClients.create(
          "mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
      database = mongoClient.getDatabase("ToDoApp");
@@ -36,8 +33,15 @@ public class DatabaseConnection {
      collectionUsuarios = database.getCollection("Usuarios");
    }
 
+   public static DatabaseConnection getInstance() {
+      if (instance == null) {
+        instance = new DatabaseConnection();
+      }
+      return instance;
+   }
 
-  public static void createTask(String taskTitle, String taskDescription, String category,
+
+  public void createTask(String taskTitle, String taskDescription, String category,
       String priority, ObjectId userId) {
       LocalDateTime fechaHoraActual = LocalDateTime.now();
       if (category.isEmpty()){
@@ -53,7 +57,7 @@ public class DatabaseConnection {
     collectionTareas.insertOne(tarea);
   }
 
-  public static void updateTask(String taskId, String newTaskTitle, String newTaskDescription, boolean isCompleted) {
+  public void updateTask(String taskId, String newTaskTitle, String newTaskDescription, boolean isCompleted) {
     Document query = new Document("_id", new ObjectId(taskId));
     Bson updates = Updates.combine(
         Updates.set("nombre", newTaskTitle),
@@ -64,12 +68,12 @@ public class DatabaseConnection {
     collectionTareas.updateOne(query, updates, options);
   }
 
-  public static void deleteTask(String taskId) {
+  public void deleteTask(String taskId) {
     Document query = new Document("_id", new ObjectId(taskId));
     collectionTareas.deleteOne(query);
   }
 
-  public static boolean createUser(String userName, String userEmail, String password) {
+  public boolean createUser(String userName, String userEmail, String password) {
     try {
       String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
       Document newUsuario = new Document("nombre", userName)
@@ -82,7 +86,7 @@ public class DatabaseConnection {
     }
   }
 
-  public static boolean login(String emailField, String passwordField) {
+  public boolean login(String emailField, String passwordField) {
     try {
       mongoClient = MongoClients.create(
           "mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
@@ -95,14 +99,10 @@ public class DatabaseConnection {
 
       if (existingUser != null && BCrypt.checkpw(passwordField,
           existingUser.getString("password"))) {
-        System.out.println(
-            "Usuario " + existingUser.getString("nombre") + " inicio sesion " + LocalDate.now()
-        );
-        userId = existingUser.getObjectId("_id");
+        setUserId(existingUser.getObjectId("_id"));
         return true;
 
       } else {
-        System.out.println("Usuario y/o contraseña incorrectos.");
         return false;
       }
     } catch (Exception e) {
@@ -112,7 +112,7 @@ public class DatabaseConnection {
 
   }
 
-   private static boolean checkEmail(String email) {
+   private boolean checkEmail(String email) {
     MongoCollection<Document> collection = database.getCollection("Usuarios");
     FindIterable<Document> iterable = collection.find();
 
@@ -125,27 +125,36 @@ public class DatabaseConnection {
   }
 
 
-  private static boolean validateEmail(String email) {
+  private boolean validateEmail(String email) {
     String regex = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
     Pattern pattern = Pattern.compile(regex);
     Matcher matcher = pattern.matcher(email);
     return matcher.matches();
   }
 
-  public static Document getCurrentTask() {
+  public Document getCurrentTask() {
     return currentTask;
   }
 
-  public static void setCurrentTask(Document currentTask) {
-    DatabaseConnection.currentTask = currentTask;
+  public void setCurrentTask(Document currentTask) {
+    instance.currentTask = currentTask;
   }
 
-  public static ObjectId getUserId() {
+  public ObjectId getUserId() {
     return userId;
   }
 
-  public static void setUserId(ObjectId userId) {
-    DatabaseConnection.userId = userId;
+  public void setUserId(ObjectId userId) {
+    instance.userId = userId;
   }
+
+  public MongoCollection<Document> getCollectionTareas() {
+    return collectionTareas;
+  }
+
+  public MongoCollection<Document> getCollectionUsuarios() {
+    return collectionUsuarios;
+  }
+
 }
 

@@ -1,6 +1,5 @@
 package jala.university.todo_app.controllers;
 
-import jala.university.todo_app.DatabaseConnection;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -41,6 +40,7 @@ public class InfoTaskController implements Initializable {
 
   @FXML
   private TextField taskTitle;
+  private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
 
   @FXML
   public void updateTask(MouseEvent event) throws IOException {
@@ -49,22 +49,20 @@ public class InfoTaskController implements Initializable {
 
   @FXML
   void deleteTask(MouseEvent event) {
-    System.out.println(DatabaseConnection.getCurrentTask().toJson());
-    String taskId = DatabaseConnection.getCurrentTask().getObjectId("_id").toString();
-    DatabaseConnection.deleteTask(taskId);
+    String taskId = dbConnection.getCurrentTask().getObjectId("_id").toString();
+    dbConnection.deleteTask(taskId);
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    taskTitle.setText(DatabaseConnection.getCurrentTask().getString("nombre"));
+    taskTitle.setText(dbConnection.getCurrentTask().getString("nombre"));
     taskTitle.setEditable(false);
-    taskDescription.setText(DatabaseConnection.getCurrentTask().getString("descripcion"));
+    taskDescription.setText(dbConnection.getCurrentTask().getString("descripcion"));
     taskDescription.setEditable(false);
   }
 
   private void loadPage(String page){
     Parent root = null;
-    //BorderPane dashboard = getDashboard();
     try{
       root = FXMLLoader.load(getClass().getResource(page));
       AnchorPane.setTopAnchor(root, 0.0);
@@ -72,11 +70,8 @@ public class InfoTaskController implements Initializable {
       AnchorPane.setLeftAnchor(root, 0.0);
       AnchorPane.setRightAnchor(root, 0.0);
       anchorPane.getChildren().add(root);
-
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-
-    System.out.println(page);
   }
 }

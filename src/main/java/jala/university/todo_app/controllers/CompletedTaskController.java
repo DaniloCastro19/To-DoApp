@@ -2,7 +2,6 @@ package jala.university.todo_app.controllers;
 
 import com.mongodb.client.*;
 import com.mongodb.client.model.Filters;
-import jala.university.todo_app.DatabaseConnection;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
@@ -21,12 +20,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class CompletedTaskController implements Initializable {
-    private MongoClient mongoClient;
-    private MongoDatabase database;
-
-    private MongoCollection<Document> collectionUsuarios;
-
-    private MongoCollection<Document> collectionTareas;
 
     @FXML
     private ImageView completedTaskIcon;
@@ -58,12 +51,13 @@ public class CompletedTaskController implements Initializable {
 
     @FXML
     private TextField taskName;
+    private DatabaseConnection dbConnection = DatabaseConnection.getInstance();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        connectToDatabase();
-        ObjectId userId = DatabaseConnection.getUserId();
-        FindIterable<Document> tareasDelUsuario = collectionTareas.find(Filters.eq("usuario", userId));
+        ObjectId userId = dbConnection.getUserId();
+        FindIterable<Document> tareasDelUsuario = dbConnection.getCollectionTareas()
+            .find(Filters.eq("usuario", userId));
         task.setManaged(false);
         task.setVisible(false);
 
@@ -132,12 +126,4 @@ public class CompletedTaskController implements Initializable {
         userTask.getChildren().add(iconoCompletado);
         taskContainer.getChildren().add(userTask);
     }
-
-    void connectToDatabase() {
-        mongoClient = MongoClients.create("mongodb+srv://losmakias:losmakias1@cluster0.m1zizil.mongodb.net/?retryWrites=true&w=majority");
-        database = mongoClient.getDatabase("ToDoApp");
-        collectionUsuarios = database.getCollection("Usuarios");
-        collectionTareas = database.getCollection("Tareas");
-    }
-
 }
