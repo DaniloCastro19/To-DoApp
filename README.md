@@ -30,7 +30,9 @@ Requisitos Previos
 - Instalar maven
   Aquí tenemos una guía para la [instalación en Ubuntu, Windows](https://www.arteco-consulting.com/post/instalacion-de-maven "instalacion en Ubuntu, Windows y Mac OSX")
 
-
+### Despliegue del proyecto
+Para ello debemos correrlo en la clase de ToDoApp
+![Inicio del programa.png](Inicio%20del%20programa.png)
 ### Base de datos
 Como trabajamos con MongoDB Atlas debemos crear una base de datos en la nube
 Tomando en cuenta este modelo:
