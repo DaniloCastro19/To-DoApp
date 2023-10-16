@@ -42,4 +42,5 @@ Tomando en cuenta este modelo:
 ### Dependencias y librerias
 Debemos descargar la libreria [jBCrypt](https://jar-download.com/artifacts/de.svenkubiak/jBCrypt "jBCrypt") que la usamos para encriptar la contraseña del usuario, debemos extraer el .jar e implementarlo en “Project Structure”, luego Modules
 ![Insertar jar jBCrypt.png](Insertar%20jar%20jBCrypt.png)
-Clic en el signo + y clic e jar y buscar la libreria.
+
+Clic en el signo + y clic en "JARs or Directories..." y buscar la libreria.
