@@ -7,11 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -56,6 +52,12 @@ public class InfoTaskController implements Initializable {
   void deleteTask(MouseEvent event) {
     String taskId = dbConnection.getCurrentTask().getObjectId("_id").toString();
     dbConnection.deleteTask(taskId);
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Estado tarea.");
+    alert.setHeaderText(null);
+    alert.setContentText("La tarea se ha eliminado con exito.");
+    alert.showAndWait();
+
   }
 
   @Override

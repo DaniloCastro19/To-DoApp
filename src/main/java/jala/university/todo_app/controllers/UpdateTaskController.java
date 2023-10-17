@@ -7,11 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -49,7 +45,11 @@ public class UpdateTaskController implements Initializable {
     String taskId = dbConnection.getCurrentTask().getObjectId("_id").toString();
     boolean isTaskCompleted = completeTask.isSelected();
     dbConnection.updateTask(taskId, taskTitle.getText(), taskDescription.getText(), isTaskCompleted);
-
+    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    alert.setTitle("Estado de actualización.");
+    alert.setHeaderText(null);
+    alert.setContentText("La tarea se ha actualizado con exito.");
+    alert.showAndWait();
   }
 
   @Override
