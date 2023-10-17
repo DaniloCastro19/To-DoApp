@@ -69,10 +69,17 @@ public class LoginController {
                 stage.setTitle("Dashboard");
                 stage.setScene(scene);
                 stage.show();
+            }else {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Estado de inicio de sesión.");
+                alert.setHeaderText(null);
+                alert.setContentText("No se encontro el usuario. Por favor verifique el correo y contraseña ingresados.");
+                alert.showAndWait();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }
