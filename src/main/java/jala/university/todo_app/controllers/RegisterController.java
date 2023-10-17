@@ -69,12 +69,15 @@ public class RegisterController {
                     alert.setContentText("Usuario registrado con éxito.");
                     alert.showAndWait();
                     loadLogin();
+                    cleanAlerts();
                 } else if (!registrationSuccess){
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error de registro");
                     alert.setHeaderText(null);
                     alert.setContentText("El registro de usuario ha fallado. Por favor, siga las instrucciones e inténtelo de nuevo.");
                     alert.showAndWait();
+                    cleanAlerts();
+
                 }
             }else {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -82,6 +85,8 @@ public class RegisterController {
                 alert.setHeaderText(null);
                 alert.setContentText("El registro de usuario ha fallado. Por favor siga las instrucciones.");
                 alert.showAndWait();
+                cleanAlerts();
+
             }
 
         } catch (Exception e) {
@@ -147,6 +152,13 @@ public class RegisterController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    void cleanAlerts(){
+        nameFieldAlertLabel.setText("");
+        emailFieldAlertLabel.setText("");
+        passwordFieldAlertLabel.setText("");
+        repeatPasswordAlertLabel.setText("");
     }
 
 }
